@@ -1,0 +1,61 @@
+body {
+  margin: 5px;
+}
+
+.window_box {
+  width: 600px;
+  margin: 0 auto;
+  border: solid 1px;
+}
+
+.content {
+  margin: 30px;
+}
+
+h1 {
+  font-size: 27px;
+}
+
+h2 {
+  font-size: 20px;
+  border-left: solid 5px pink;
+  border-bottom: solid 2px pink;
+  padding-left: 10px;
+}
+
+.message {
+  font-size: 15px;
+}
+
+.cmd__list {
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+}
+
+.cmd__item {
+  width: 22%;
+  background-color: lightgray;
+  border: solid 1px;
+  text-align: center;
+}
+
+.cmd__item a {
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+}
+
+.max__hp {
+  background-color: mediumseagreen;
+  width: 50%;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+}
+.current__hp {
+  background-color: aqua;
+  width: 75%;
+  height: 50%;
+}

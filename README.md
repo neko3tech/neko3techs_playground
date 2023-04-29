@@ -1,2 +1,3 @@
 # neko3techs_playground
-my code playground
+
+It's my code playground.

@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+}
+
+article {
+  margin: 0 auto;
+  padding: 50px;
+  background-color: silver;
+  width: 500px;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 30px;
+  text-align: center;
+  margin: 10px;
+}
+
+h2 {
+  font-size: 25px;
+  margin: 10px;
+}
+
+p,
+li,
+dl,
+dd,
+dt {
+  font-size: 16px;
+}
+
+li {
+  list-style: square;
+  margin-bottom: 8px;
+}
+
+dl {
+  margin-left: 10px;
+}
+
+dt {
+  border-left: solid 10px;
+  border-bottom: dotted 1px;
+  border-color: blue;
+  padding-left: 8px;
+}
+
+dd {
+  margin-left: 25px;
+  margin-bottom: 8px;
+}
+
+section {
+  background-color: white;
+  padding: 25px;
+  border: solid 1px;
+}
+
+p.section__description {
+  background-color: lightgray;
+  margin: 0;
+  padding: 8px;
+}
+
+.shop {
+  border-color: red;
+  margin-bottom: 40px;
+}
+
+.food {
+  border-color: blue;
+}
+
+.ladies {
+  background-color: pink;
+}
+
+.family {
+  color: red;
+}
+
+.star {
+  color: yellow;
+}

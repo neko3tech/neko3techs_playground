@@ -1,0 +1,45 @@
+article {
+  margin: 0 auto;
+  width: 620px;
+  border: solid 3px orange;
+}
+
+section {
+  margin: 25px auto;
+  width: 95%;
+  border: solid 1px orange;
+}
+
+h2 {
+  border: solid 1px orange;
+  background-color: rgb(247, 205, 127);
+  margin: 0;
+  padding: 5px;
+}
+
+dl {
+  margin: 15px;
+}
+
+dt {
+  border-bottom: dotted 1px orange;
+}
+
+dd {
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+p {
+  display: inline;
+  line-height: 200%;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  background-color: #fdf9b9;
+  padding: 5px 0;
+  text-align: center;
+  font-weight: bold;
+}

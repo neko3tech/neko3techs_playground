@@ -1,0 +1,17 @@
+#large_block {
+  width: 500px;
+  height: 200px;
+  border: solid 2px;
+}
+
+.blockA {
+  width: 200px;
+  height: 50px;
+  background-color: #ff0000;
+}
+
+.blockB {
+  width: 200px;
+  height: 50px;
+  background-color: #00ff00;
+}
