@@ -29,7 +29,8 @@ function App() {
           temperature: res.data.current.temp_c,
           conditionText: res.data.current.condition.text,
           icon: res.data.current.condition.icon
-        })
+        });
+        setCity("");
       })
       .catch(err =>
         alert("エラーが発生しました。\nページをリロードしてもう一度トライしてください。")
@@ -40,7 +41,7 @@ function App() {
     <div className="wrapper">
       <div className="container">
         <Title />
-        <Form setCity={setCity} getWeather={getWeather} />
+        <Form setCity={setCity} getWeather={getWeather} city={city} />
         <Results results={results} />
       </div>
     </div>
