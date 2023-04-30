@@ -30,7 +30,10 @@ function App() {
           conditionText: res.data.current.condition.text,
           icon: res.data.current.condition.icon
         })
-      });
+      })
+      .catch(err =>
+        alert("エラーが発生しました。\nページをリロードしてもう一度トライしてください。")
+      );
   };
 
   return (
