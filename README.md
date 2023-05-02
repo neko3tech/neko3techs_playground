@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- 検討中
+- [はじめてさわる React & JavaScript （React 入門シリーズ） Kindle 版](https://amzn.to/40TLdJO)
 
 ## Learned
 
