@@ -1,9 +1,9 @@
-
 import Loading from "./Loading";
 
 
 const Results = ({ countryData, loading }) => {
     const { date, newConfirmed, totalConfirmed, newRecoverd, totalRecoverd } = countryData;
+
     return (
         <div className="results-container">
             {loading ? <Loading /> :

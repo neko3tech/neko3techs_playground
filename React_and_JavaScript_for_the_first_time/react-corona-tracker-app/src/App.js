@@ -3,7 +3,6 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import TopPage from './pages/TopPage';
 import WorldPage from "./pages/WorldPage";
-
 import './App.css';
 
 import countriesJson from './countries.json';
@@ -20,6 +19,7 @@ function App() {
     totalRecoverd: ""
   });
   const [loading, setLoading] = useState(false);
+  const [allCountriesData, setAllCountriesData] = useState([]);
 
 
   useEffect(() => {
@@ -44,9 +44,6 @@ function App() {
     getCountryData();
   }, [country]);
 
-
-  const [allCountriesData, setAllCountriesData] = useState([])
-
   useEffect(() => {
     fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
       .then(res => res.json())
@@ -55,6 +52,7 @@ function App() {
         alert("エラーが発生しました。\nページをリロードして、もう一度トライしてください。");
       });
   }, []);
+
 
   return (
     <BrowserRouter>
@@ -76,5 +74,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;
