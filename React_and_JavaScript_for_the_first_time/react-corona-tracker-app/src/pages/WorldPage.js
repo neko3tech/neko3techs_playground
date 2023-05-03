@@ -1,12 +1,13 @@
+import Title from "../components/Title";
 import Card from "../components/Card";
 
 
 const WorldPage = (props) => {
     return (
         <div>
+            <Title />
             <Card
                 allCountriesData={props.allCountriesData}
-                getAllCountriesData={props.getAllCountriesData}
             />
         </div>
     );

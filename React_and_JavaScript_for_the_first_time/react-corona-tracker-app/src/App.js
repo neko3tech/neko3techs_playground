@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import TopPage from './pages/TopPage';
@@ -36,11 +36,12 @@ function App() {
 
 
   const [allCountriesData, setAllCountriesData] = useState([])
-  const getAllCountriesData = () => {
+
+  useEffect(() => {
     fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
       .then(res => res.json())
       .then(data => setAllCountriesData(data.Countries))
-  };
+  }, []);
 
   return (
     <BrowserRouter>
@@ -56,7 +57,6 @@ function App() {
         <Route path="world" element={
           <WorldPage
             allCountriesData={allCountriesData}
-            getAllCountriesData={getAllCountriesData}
           />
         } />
       </Routes>
