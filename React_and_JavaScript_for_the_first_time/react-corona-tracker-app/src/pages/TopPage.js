@@ -13,7 +13,6 @@ const TopPage = ({ countriesJson, setCountry, getCountryData, countryData, loadi
                 <Selector
                     countriesJson={countriesJson}
                     setCountry={setCountry}
-                    getCountryData={getCountryData}
                 />
                 <Results
                     countryData={countryData}
