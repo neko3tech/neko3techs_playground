@@ -1,12 +1,13 @@
-const Results = (props) => {
+const Results = ({ countryData }) => {
+    const { date, newConfirmed, totalConfirmed, newRecoverd, totalRecoverd } = countryData;
     return (
         <div className="results-container">
             <div>
-                <p>日付：<span>{props.countryData.date.slice(0, 10)}</span></p>
-                <p>新規感染者：<span>{props.countryData.newConfirmed.toLocaleString()}</span></p>
-                <p>感染者総数：<span>{props.countryData.totalConfirmed.toLocaleString()}</span></p>
-                <p>新規回復者：<span>{props.countryData.newRecoverd.toLocaleString()}</span></p>
-                <p>回復者総数：<span>{props.countryData.totalRecoverd.toLocaleString()}</span></p>
+                <p>日付：<span>{date.slice(0, 10)}</span></p>
+                <p>新規感染者：<span>{newConfirmed.toLocaleString()}</span></p>
+                <p>感染者総数：<span>{totalConfirmed.toLocaleString()}</span></p>
+                <p>新規回復者：<span>{newRecoverd.toLocaleString()}</span></p>
+                <p>回復者総数：<span>{totalRecoverd.toLocaleString()}</span></p>
             </div>
         </div>
     );
