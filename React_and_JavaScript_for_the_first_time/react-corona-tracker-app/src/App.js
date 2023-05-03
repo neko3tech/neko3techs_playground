@@ -1,8 +1,11 @@
 import { useState } from "react";
+
 import TopPage from './pages/TopPage';
 
 import './App.css';
+
 import countriesJson from './countries.json';
+
 
 function App() {
 
@@ -29,9 +32,15 @@ function App() {
       })
   };
 
+
   return (
     <div>
-      <TopPage countriesJson={countriesJson} setCountry={setCountry} getCountryData={getCountryData} />
+      <TopPage
+        countriesJson={countriesJson}
+        setCountry={setCountry}
+        getCountryData={getCountryData}
+        countryData={countryData}
+      />
     </div>
   );
 }
