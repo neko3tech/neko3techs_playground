@@ -27,6 +27,8 @@ app.use("/corona-tracker-world-data", limiter, (req, res, next) => {
     })(req, res, next)
 });
 
+const port = process.env.PORT || 5000;
+
 app.listen(5000, () => {
-    console.log("Listening on localhost:5000");
+    console.log(`Listening on localhost:${port}`);
 });
