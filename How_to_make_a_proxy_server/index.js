@@ -14,8 +14,6 @@ const limiter = rateLimit({
 
 // root
 app.get("/", (req, res) => {
-    const params = url.parse(req.url).query;
-    console.log(params);
     res.send("This is my proxy server.");
 });
 
