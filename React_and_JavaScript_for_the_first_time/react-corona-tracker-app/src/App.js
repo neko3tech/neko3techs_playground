@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     const getCountryData = () => {
       setLoading(true);
-      fetch(`https://monotein-books.vercel.app/api/corona-tracker/country/${country}`)
+      fetch(`${process.env.REACT_APP_PROXY_SERVER_BASE_URL_COUNTRY_DATA}?${country}`)
         .then(res => res.json())
         .then(data => {
           setCountryData({
@@ -45,7 +45,7 @@ function App() {
   }, [country]);
 
   useEffect(() => {
-    fetch("https://monotein-books.vercel.app/api/corona-tracker/summary")
+    fetch(`${process.env.REACT_APP_PROXY_SERVER_BASE_URL_WORLD_DATA}`)
       .then(res => res.json())
       .then(data => setAllCountriesData(data.Countries))
       .catch(err => {
