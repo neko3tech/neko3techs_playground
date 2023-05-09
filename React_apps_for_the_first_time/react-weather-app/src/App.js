@@ -10,7 +10,6 @@ import './App.css';
 
 function App() {
 
-  const api_key = process.env.REACT_APP_WEATHERAPI_KEY;
   const [city, setCity] = useState("");
   const [results, setResults] = useState({
     country: "",
@@ -24,7 +23,7 @@ function App() {
   const getWeather = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=${api_key}&q=${city}&aqi=no`)
+    axios.get(`${process.env.REACT_APP_PROXY_SERVER_BASE_URL}?${city}`)
       .then(res => {
         setResults({
           country: res.data.location.country,
