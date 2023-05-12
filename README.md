@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- pending...
+- [はじめてつくるバックエンドサーバー基礎編（Node.js & Express） Kindle 版](https://amzn.to/3MisOlM)
 
 ## Learned
 
