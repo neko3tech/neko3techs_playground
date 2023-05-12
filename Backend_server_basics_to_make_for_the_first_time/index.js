@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -8,7 +9,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/autumn", (req, res) => {
-    console.log("req.body : ", req.body);
+    fs.writeFile(__dirname + "/data.txt", req.body.activity, () => {
+        res.send("投稿完了");
+    });
 });
 
 app.listen(5000, () => {
