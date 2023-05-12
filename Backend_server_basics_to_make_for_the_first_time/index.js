@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
+const coronaData = require("./coronaData.json");
 
 app.get("/", (req, res) => {
-    res.send("<h1>見出し1</h1>");
+    res.send(coronaData);
 });
 
 app.listen(5000, () => {
