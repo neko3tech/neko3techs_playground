@@ -1,0 +1,15 @@
+{
+  "name": "backend_server_basics_to_make_for_the_first_time",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "neko3tech",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
