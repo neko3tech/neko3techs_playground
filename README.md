@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- [learning ブランチにて演習中](../tree/learning)
+- [learning ブランチにて演習中](https://github.com/neko3tech/neko3techs_playground/tree/learning)
 
 ## Learned
 
