@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- [learning ブランチにて演習中](./tree/learning/README.md)
+- [learning ブランチにて演習中](../tree/learning)
 
 ## Learned
 
