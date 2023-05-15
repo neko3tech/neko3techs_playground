@@ -7,3 +7,7 @@
 ## Reference book
 
 [はじめてつくるバックエンドサーバー基礎編（Node.js & Express） Kindle 版](https://amzn.to/3MisOlM)
+
+## Completion date of a book
+
+2023/05/15
