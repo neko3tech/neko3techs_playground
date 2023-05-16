@@ -49,6 +49,18 @@ app.get("/", async (req, res) => {
 });
 
 
+// get:blog/article
+app.get("/blog/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.send("個別ブログデータのページ");
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
 // get:blog/create
 app.get("/blog/create", (req, res) => {
     res.sendFile(`${views}/blogCreate.html`);
