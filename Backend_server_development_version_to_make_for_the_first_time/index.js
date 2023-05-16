@@ -14,15 +14,17 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // connect mongodb
-mongoose.connect(MONGO_DB_CON_STR)
-    .then(() => {
+(async () => {
+    try {
+        await mongoose.connect(MONGO_DB_CON_STR);
         console.log("Success: Connected to MongoDB.");
-    })
-    .catch((err) => {
-        console.err("Failuer: Unconnected to MongoDB.")
-    });
+    } catch (error) {
+        console.error("Failuer: Unconnected to MongoDB.", error)
+    }
+})();
 
-// db schema
+
+// db schema setting
 const Schema = mongoose.Schema;
 const BlogSchema = new Schema({
     title: String,
@@ -46,17 +48,15 @@ app.get("/blog/create", (req, res) => {
 
 
 // post:/blog/create
-app.post("/blog/create", (req, res) => {
-    BlogModel.create(req.body)
-        .then((data) => {
-            console.log("データの書き込みが成功しました。", data);
-            res.send("ブログデータの投稿が成功しました。");
-        })
-        .catch((error) => {
-            console.error("データの書き込みが失敗しました。", error);
-            res.send("ブログデータの投稿が失敗しました。");
-        });
-
+app.post("/blog/create", async (req, res) => {
+    try {
+        let data = await BlogModel.create(req.body);
+        console.log("データの書き込みが成功しました。", data);
+        res.send("ブログデータの投稿が成功しました。");
+    } catch (error) {
+        console.error("データの書き込みが失敗しました。", error);
+        res.send("ブログデータの投稿が失敗しました。");
+    }
 });
 
 // Listening start.
