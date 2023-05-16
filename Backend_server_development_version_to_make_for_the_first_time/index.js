@@ -36,8 +36,16 @@ const BlogModel = mongoose.model("Blog", BlogSchema);
 
 
 // get:root
-app.get("/", (req, res) => {
-    res.send("こんにちは");
+app.get("/", async (req, res) => {
+    try {
+        const allBlogs = await BlogModel.find();
+        console.log("全ブログデータの読み取りが成功しました。", allBlogs);
+        res.send("全ブログデータの読み取りが成功しました。");
+
+    } catch (error) {
+        console.error("全ブログデータの読み取りが失敗しました。", error);
+        res.send("全ブログデータの読み取りが失敗しました。");
+    }
 });
 
 
