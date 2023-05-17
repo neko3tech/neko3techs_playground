@@ -35,7 +35,8 @@ const BlogSchema = new Schema({
 const BlogModel = mongoose.model("Blog", BlogSchema);
 
 
-// get:root
+//// Page rooting
+// Top page : Read all blog
 app.get("/", async (req, res) => {
     try {
         const allBlogs = await BlogModel.find();
@@ -49,7 +50,7 @@ app.get("/", async (req, res) => {
 });
 
 
-// get:blog/article
+// Article read page : Read single blog
 app.get("/blog/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.findById(req.params.id);
@@ -61,13 +62,15 @@ app.get("/blog/:id", async (req, res) => {
     }
 
 });
-// get:blog/create
+
+
+// Article create page
 app.get("/blog/create", (req, res) => {
     res.sendFile(`${views}/blogCreate.html`);
 });
 
 
-// post:/blog/create
+// Article create : Insert single blog
 app.post("/blog/create", async (req, res) => {
     try {
         let data = await BlogModel.create(req.body);
