@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
     try {
         await mongoose.connect(MONGO_DB_CON_STR);
         console.log("Success: Connected to MongoDB.");
+
     } catch (error) {
         console.error("Failuer: Unconnected to MongoDB.", error)
     }
@@ -41,7 +42,7 @@ app.get("/", async (req, res) => {
     try {
         const allBlogs = await BlogModel.find();
         console.log("全ブログデータの読み取りが成功しました。", allBlogs);
-        res.send("全ブログデータの読み取りが成功しました。");
+        res.send({ "全ブログデータの読み取りが成功しました。": allBlogs });
 
     } catch (error) {
         console.error("全ブログデータの読み取りが失敗しました。", error);
@@ -55,10 +56,44 @@ app.get("/blog/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.findById(req.params.id);
         console.dir(singleBlog);
-        res.send("個別ブログデータのページ");
+        res.send({ "個別ブログデータのページ": singleBlog });
+
     } catch (error) {
         console.error("個別ブログデータの読み取りが失敗しました。", error);
         res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article updade page : Read single blog
+app.get("/blog/update/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの編集ページ": singleBlog });
+        // res.send("個別ブログデータの編集ページ");
+
+
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article update : Update single blog
+app.post("/blog/update/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.updateOne({ _id: req.params.id }, req.body).exec();
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの編集が成功しました。": singleBlog });
+        // res.send("個別ブログデータの編集が成功しました。");
+
+    } catch (error) {
+        console.error("個別ブログデータの編集が失敗しました。", error);
+        res.send("個別ブログデータの編集が失敗しました。");
     }
 
 });
@@ -76,6 +111,7 @@ app.post("/blog/create", async (req, res) => {
         let data = await BlogModel.create(req.body);
         console.log("データの書き込みが成功しました。", data);
         res.send("ブログデータの投稿が成功しました。");
+
     } catch (error) {
         console.error("データの書き込みが失敗しました。", error);
         res.send("ブログデータの投稿が失敗しました。");
