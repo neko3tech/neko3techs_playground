@@ -99,6 +99,39 @@ app.post("/blog/update/:id", async (req, res) => {
 });
 
 
+// Article delete page : Delete single blog
+app.get("/blog/delete/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの削除ページ": singleBlog });
+        // res.send("個別ブログデータの削除ページ");
+
+
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article delete : Delete single blog
+app.post("/blog/delete/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.deleteOne({ _id: req.params.id }).exec();
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの削除が成功しました。": singleBlog });
+        // res.send("個別ブログデータの削除が成功しました。");
+
+    } catch (error) {
+        console.error("個別ブログデータの削除が失敗しました。", error);
+        res.send("個別ブログデータの削除が失敗しました。");
+    }
+
+});
+
+
 // Article create page
 app.get("/blog/create", (req, res) => {
     res.sendFile(`${views}/blogCreate.html`);
