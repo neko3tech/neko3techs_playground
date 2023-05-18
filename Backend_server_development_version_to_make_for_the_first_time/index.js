@@ -8,10 +8,12 @@ const rootDir = __dirname;
 const views = `${rootDir}/views`;
 const { MONGO_DB_CON_STR } = process.env;
 
-
-// expressのURLエンコードを有効にする
+//// application settings
+// enable express URL encode
 app.use(express.urlencoded({ extended: true }));
 
+// using public dir
+app.use("/public", express.static("public"));
 
 // ejs enable
 app.set("view engine", "ejs");
@@ -26,7 +28,6 @@ app.set("view engine", "ejs");
         console.error("Failuer: Unconnected to MongoDB.", error)
     }
 })();
-
 
 // db schema setting
 const Schema = mongoose.Schema;
@@ -63,9 +64,9 @@ app.get("/blog/create", (req, res) => {
 // Article create : Insert single blog
 app.post("/blog/create", async (req, res) => {
     try {
-        let data = await BlogModel.create(req.body);
-        console.log("データの書き込みが成功しました。", data);
-        res.send("ブログデータの投稿が成功しました。");
+        const singleBlog = await BlogModel.create(req.body);
+        console.log("データの書き込みが成功しました。", singleBlog);
+        res.send({ "ブログデータの投稿が成功しました。": singleBlog });
 
     } catch (error) {
         console.error("データの書き込みが失敗しました。", error);

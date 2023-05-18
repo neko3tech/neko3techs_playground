@@ -9,12 +9,13 @@
     <main>
       <div>
         <% allBlogs.forEach( (blog) => { %>
-        <a href="blog/<%= blog._id %>">
-          <div>
+        <div>
+          <a href="blog/<%= blog._id %>">
+            <img src="/public/images/<%= blog.image %>" alt="blog-image" />
             <h2><%= blog.title %></h2>
             <p><%= blog.summary %></p>
-          </div>
-        </a>
+          </a>
+        </div>
         <% }) %>
       </div>
     </main>
