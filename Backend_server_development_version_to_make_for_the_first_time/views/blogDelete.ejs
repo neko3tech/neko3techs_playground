@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./head"); %>
+    <title>削除ページ</title>
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <main>
+      <div>
+        <form action="/blog/delete/<%= singleBlog._id %>" method="post">
+          <h1><%= singleBlog.title %></h1>
+          <p><%= singleBlog.textBody %></p>
+          <button type="submit">削除する</button>
+        </form>
+      </div>
+      <h1><%= singleBlog.title %></h1>
+      <p><%= singleBlog.textBody %></p>
+    </main>
+    <%- include("./footer"); %>
+  </body>
+</html>

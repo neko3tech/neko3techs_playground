@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./head"); %>
+    <title>ブログ編集ページ</title>
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <main>
+      <div>
+        <h1>編集ページ</h1>
+        <div>
+          <form action="/blog/update/<%= singleBlog._id %>" method="post">
+            <label for="title">タイトル</label>
+            <input
+              type="text"
+              name="title"
+              value="<%= singleBlog.title %>"
+              required
+            />
+
+            <label for="summary">要約</label>
+            <input
+              type="text"
+              name="summary"
+              value="<%= singleBlog.summary %>"
+              required
+            />
+
+            <label for="image">イメージ</label>
+            <input
+              type="text"
+              name="image"
+              placeholder="/img1.jpg"
+              value="<%= singleBlog.image %>"
+              required
+            />
+
+            <label for="textBody">本文</label>
+            <textarea name="textBody" rows="15" required>
+<%= singleBlog.textBody %></textarea
+            >
+            <br />
+            <button type="submit">変更を反映する</button>
+          </form>
+        </div>
+      </div>
+    </main>
+    <%- include("./footer"); %>
+  </body>
+</html>

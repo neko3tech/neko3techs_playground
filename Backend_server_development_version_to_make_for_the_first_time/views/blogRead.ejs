@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./head"); %>
+    <title>blogReadPage</title>
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <main>
+      <h1><%= singleBlog.title %></h1>
+      <p><%= singleBlog.textBody %></p>
+    </main>
+    <%- include("./footer"); %>
+  </body>
+</html>

@@ -13,6 +13,9 @@ const { MONGO_DB_CON_STR } = process.env;
 app.use(express.urlencoded({ extended: true }));
 
 
+// ejs enable
+app.set("view engine", "ejs");
+
 // connect mongodb
 (async () => {
     try {
@@ -42,7 +45,7 @@ app.get("/", async (req, res) => {
     try {
         const allBlogs = await BlogModel.find();
         console.log("全ブログデータの読み取りが成功しました。", allBlogs);
-        res.send({ "全ブログデータの読み取りが成功しました。": allBlogs });
+        res.render("index", { allBlogs });
 
     } catch (error) {
         console.error("全ブログデータの読み取りが失敗しました。", error);
@@ -51,90 +54,9 @@ app.get("/", async (req, res) => {
 });
 
 
-// Article read page : Read single blog
-app.get("/blog/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータのページ": singleBlog });
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
-    }
-
-});
-
-
-// Article updade page : Read single blog
-app.get("/blog/update/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの編集ページ": singleBlog });
-        // res.send("個別ブログデータの編集ページ");
-
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
-    }
-
-});
-
-
-// Article update : Update single blog
-app.post("/blog/update/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.updateOne({ _id: req.params.id }, req.body).exec();
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの編集が成功しました。": singleBlog });
-        // res.send("個別ブログデータの編集が成功しました。");
-
-    } catch (error) {
-        console.error("個別ブログデータの編集が失敗しました。", error);
-        res.send("個別ブログデータの編集が失敗しました。");
-    }
-
-});
-
-
-// Article delete page : Delete single blog
-app.get("/blog/delete/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの削除ページ": singleBlog });
-        // res.send("個別ブログデータの削除ページ");
-
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
-    }
-
-});
-
-
-// Article delete : Delete single blog
-app.post("/blog/delete/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.deleteOne({ _id: req.params.id }).exec();
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの削除が成功しました。": singleBlog });
-        // res.send("個別ブログデータの削除が成功しました。");
-
-    } catch (error) {
-        console.error("個別ブログデータの削除が失敗しました。", error);
-        res.send("個別ブログデータの削除が失敗しました。");
-    }
-
-});
-
-
 // Article create page
 app.get("/blog/create", (req, res) => {
-    res.sendFile(`${views}/blogCreate.html`);
+    res.render("blogCreate");
 });
 
 
@@ -150,6 +72,82 @@ app.post("/blog/create", async (req, res) => {
         res.send("ブログデータの投稿が失敗しました。");
     }
 });
+
+
+// Article read page : Read single blog
+app.get("/blog/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.render("blogRead", { singleBlog });
+
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article updade page : Read single blog
+app.get("/blog/update/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.render("blogUpdate", { singleBlog });
+
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article update : Update single blog
+app.post("/blog/update/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.updateOne({ _id: req.params.id }, req.body).exec();
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの編集が成功しました。": singleBlog });
+
+    } catch (error) {
+        console.error("個別ブログデータの編集が失敗しました。", error);
+        res.send("個別ブログデータの編集が失敗しました。");
+    }
+
+});
+
+
+// Article delete page : Delete single blog
+app.get("/blog/delete/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.findById(req.params.id);
+        console.dir(singleBlog);
+        res.render("blogDelete", { singleBlog });
+
+    } catch (error) {
+        console.error("個別ブログデータの読み取りが失敗しました。", error);
+        res.send("個別ブログデータの読み取りが失敗しました。");
+    }
+
+});
+
+
+// Article delete : Delete single blog
+app.post("/blog/delete/:id", async (req, res) => {
+    try {
+        const singleBlog = await BlogModel.deleteOne({ _id: req.params.id }).exec();
+        console.dir(singleBlog);
+        res.send({ "個別ブログデータの削除が成功しました。": singleBlog });
+
+    } catch (error) {
+        console.error("個別ブログデータの削除が失敗しました。", error);
+        res.send("個別ブログデータの削除が失敗しました。");
+    }
+
+});
+
 
 // Listening start.
 app.listen(5000, () => {

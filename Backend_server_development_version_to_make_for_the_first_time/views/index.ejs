@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./head"); %>
+    <title>Indexページ</title>
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <main>
+      <div>
+        <% allBlogs.forEach( (blog) => { %>
+        <a href="blog/<%= blog._id %>">
+          <div>
+            <h2><%= blog.title %></h2>
+            <p><%= blog.summary %></p>
+          </div>
+        </a>
+        <% }) %>
+      </div>
+    </main>
+    <%- include("./footer"); %>
+  </body>
+</html>
