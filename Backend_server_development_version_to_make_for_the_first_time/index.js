@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -11,6 +12,14 @@ const { MONGO_DB_CON_STR } = process.env;
 //// application settings
 // enable express URL encode
 app.use(express.urlencoded({ extended: true }));
+
+// enable expless session
+app.use(session({
+    secret: "secretKey",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 300000 },
+}));
 
 // using public dir
 app.use("/public", express.static("public"));
@@ -66,7 +75,12 @@ app.get("/", async (req, res) => {
 
 // Article create page
 app.get("/blog/create", (req, res) => {
-    res.render("blogCreate");
+    if (req.session.userId) {
+        res.render("blogCreate");
+
+    } else {
+        res.redirect("/user/login");
+    }
 });
 
 
@@ -193,6 +207,7 @@ app.post("/user/login", async (req, res) => {
         console.log("ユーザーデータ取得が成功しました。", userData);
 
         if (userData && userData.password === req.body.password) {
+            req.session.userId = userData._id;
             res.send("ログインに成功しました。");
         } else {
             res.send("ログインに失敗しました。");
