@@ -29,15 +29,24 @@ app.set("view engine", "ejs");
     }
 })();
 
-// db schema setting
+//// db schema settings
 const Schema = mongoose.Schema;
+// blog schema setting
 const BlogSchema = new Schema({
     title: String,
     summary: String,
     image: String,
     textBody: String,
 });
+// user schema setting
+const userSchema = new Schema({
+    name: { type: String, required: true, },
+    email: { type: String, required: true, unique: true, },
+    password: { type: String, required: true, },
+});
+// create models
 const BlogModel = mongoose.model("Blog", BlogSchema);
+const UserModel = mongoose.model("User", userSchema);
 
 
 //// Page rooting
@@ -61,7 +70,7 @@ app.get("/blog/create", (req, res) => {
 });
 
 
-// Article create : Insert single blog
+// Article create : Create single blog
 app.post("/blog/create", async (req, res) => {
     try {
         const singleBlog = await BlogModel.create(req.body);
@@ -147,6 +156,26 @@ app.post("/blog/delete/:id", async (req, res) => {
         res.send("個別ブログデータの削除が失敗しました。");
     }
 
+});
+
+
+// Create user page
+app.get("/user/create", (req, res) => {
+    res.render("userCreate");
+});
+
+// Create user : Create user
+app.post("/user/create", async (req, res) => {
+    try {
+        console.dir(req.body);
+        const userData = await UserModel.create(req.body);
+        console.log("ユーザーデータ登録が成功しました。", userData)
+        res.send({ "ユーザーデータ登録が成功しました。": userData });
+
+    } catch (error) {
+        console.error("ユーザーデータ登録が失敗しました。", error);
+        res.send({ "ユーザーデータ登録が失敗しました。": error });
+    }
 });
 
 
