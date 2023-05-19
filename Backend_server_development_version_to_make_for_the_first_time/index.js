@@ -81,6 +81,7 @@ app.post("/blog/create", async (req, res) => {
         console.error("データの書き込みが失敗しました。", error);
         res.send("ブログデータの投稿が失敗しました。");
     }
+
 });
 
 
@@ -175,6 +176,31 @@ app.post("/user/create", async (req, res) => {
     } catch (error) {
         console.error("ユーザーデータ登録が失敗しました。", error);
         res.send({ "ユーザーデータ登録が失敗しました。": error });
+    }
+});
+
+
+// Login user page
+app.get("/user/login", (req, res) => {
+    res.render("userLogin");
+});
+
+
+// Login user : Read user
+app.post("/user/login", async (req, res) => {
+    try {
+        const userData = await UserModel.findOne({ email: req.body.email });
+        console.log("ユーザーデータ取得が成功しました。", userData);
+
+        if (userData && userData.password === req.body.password) {
+            res.send("ログインに成功しました。");
+        } else {
+            res.send("ログインに失敗しました。");
+        }
+
+    } catch (error) {
+        console.error("ユーザーデータ取得が失敗しました。", error);
+        res.send({ "ユーザーデータ取得が失敗しました。": error });
     }
 });
 
