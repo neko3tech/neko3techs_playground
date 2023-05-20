@@ -37,166 +37,46 @@ app.set("view engine", "ejs");
     }
 })();
 
-// models
-const BlogModel = require(path.join(__dirname, "src/models/blog"));
-const UserModel = require(path.join(__dirname, "src/models/user"));
-
 
 //// Page rooting
 // Top page : Read all blog
-app.get("/", async (req, res) => {
-    try {
-        const allBlogs = await BlogModel.getAll();
-        res.render("index", { allBlogs, session: req.session.userId });
-
-    } catch (error) {
-        console.error("全ブログデータの読み取りが失敗しました。", error);
-        res.render("errorPage", { req, error });
-
-    }
-});
-
+app.get("/", require(path.join(__dirname, "src/controllers/blog/index")).get);
 
 // Article create page
-app.get("/blog/create", (req, res) => {
-    if (req.session.userId) {
-        res.render("blogCreate");
-
-    } else {
-        res.redirect("/user/login");
-    }
-});
-
+app.get("/blog/create", require(path.join(__dirname, "src/controllers/blog/create")).get);
 
 // Article create : Create single blog
-app.post("/blog/create", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.post(req.body);
-        res.redirect(`/blog/${singleBlog._id}`);
-
-    } catch (error) {
-        console.error("データの書き込みが失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
+app.post("/blog/create", require(path.join(__dirname, "src/controllers/blog/create")).post);
 
 
 // Article read page : Read single blog
-app.get("/blog/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.get(req.params.id);
-        res.render("blogRead", { singleBlog, session: req.session.userId });
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
-
+app.get("/blog/:id", require(path.join(__dirname, "src/controllers/blog/read")).get);
 
 // Article updade page : Read single blog
-app.get("/blog/update/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.get(req.params.id);
-        res.render("blogUpdate", { singleBlog, session: req.session.userId });
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
-
+app.get("/blog/update/:id", require(path.join(__dirname, "src/controllers/blog/update")).get);
 
 // Article update : Update single blog
-app.post("/blog/update/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.edit(req.params.id, req.body);
-        res.redirect(`/blog/${req.params.id}`);
-
-    } catch (error) {
-        console.error("個別ブログデータの編集が失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
+app.post("/blog/update/:id", require(path.join(__dirname, "src/controllers/blog/update")).post);
 
 
 // Article delete page : Delete single blog
-app.get("/blog/delete/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.get(req.params.id);
-        res.render("blogDelete", { singleBlog });
-
-    } catch (error) {
-        console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
-
+app.get("/blog/delete/:id", require(path.join(__dirname, "src/controllers/blog/delete")).get);
 
 // Article delete : Delete single blog
-app.post("/blog/delete/:id", async (req, res) => {
-    try {
-        const singleBlog = await BlogModel.delete(req.params.id);
-        res.redirect("/");
-
-    } catch (error) {
-        console.error("個別ブログデータの削除が失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
+app.post("/blog/delete/:id", require(path.join(__dirname, "src/controllers/blog/delete")).post);
 
 
 // Create user page
-app.get("/user/create", (req, res) => {
-    res.render("userCreate");
-});
+app.get("/user/create", require(path.join(__dirname, "src/controllers/user/create")).get);
 
 // Create user : Create user
-app.post("/user/create", async (req, res) => {
-    try {
-        const userData = await UserModel.add(req.body);
-        res.redirect("/user/login");
-
-    } catch (error) {
-        console.error("ユーザーデータ登録が失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
-
+app.post("/user/create", require(path.join(__dirname, "src/controllers/user/create")).post);
 
 // Login user page
-app.get("/user/login", (req, res) => {
-    res.render("userLogin");
-});
-
+app.get("/user/login", require(path.join(__dirname, "src/controllers/user/login")).get);
 
 // Login user : Read user
-app.post("/user/login", async (req, res) => {
-    try {
-        const userData = await UserModel.get(req.body);
-
-        if (userData && userData.password === req.body.password) {
-            req.session.userId = userData._id;
-            res.redirect("/");
-
-        } else {
-            throw new Error("ログインに失敗しました。");
-        }
-
-    } catch (error) {
-        console.error("ユーザーデータ取得が失敗しました。", error);
-        res.render("errorPage", { req, error });
-    }
-
-});
-
+app.post("/user/login", require(path.join(__dirname, "src/controllers/user/login")).post);
 
 // Page notfound
 app.get("*", (req, res) => {
