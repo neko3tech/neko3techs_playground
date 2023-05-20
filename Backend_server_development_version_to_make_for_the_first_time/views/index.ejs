@@ -18,6 +18,13 @@
         </div>
         <% }) %>
       </div>
+      <div>
+        <% if(session !== undefined) { %>
+        <a href="/blog/create/">記事を書く</a>
+        <% } else { %>
+        <a href="/user/login">ログイン</a>
+        <% }; %>
+      </div>
     </main>
     <%- include("./footer"); %>
   </body>

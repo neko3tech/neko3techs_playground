@@ -11,8 +11,6 @@
         <h1>ログイン</h1>
         <div>
           <form action="/user/login" method="post">
-            <label for="name">名前</label>
-            <input type="text" name="name" required />
             <label for="email">Email</label>
             <input type="text" name="email" required />
             <label for="password">パスワード</label>
@@ -22,6 +20,7 @@
           </form>
         </div>
       </div>
+      <a href="#" onclick="window.history.back(); return false;">戻る</a>
     </main>
     <%- include("./footer"); %>
   </body>

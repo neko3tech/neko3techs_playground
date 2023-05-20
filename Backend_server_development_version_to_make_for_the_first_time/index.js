@@ -6,8 +6,7 @@ require("dotenv").config();
 
 const app = express();
 const rootDir = __dirname;
-const views = `${rootDir}/views`;
-const { MONGO_DB_CON_STR } = process.env;
+const { MONGO_DB_CON_STR, APP_PORT } = process.env;
 
 //// application settings
 // enable express URL encode
@@ -18,7 +17,7 @@ app.use(session({
     secret: "secretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 300000 },
+    cookie: { maxAge: 5 * 60 * 1000 },
 }));
 
 // using public dir
@@ -63,12 +62,12 @@ const UserModel = mongoose.model("User", userSchema);
 app.get("/", async (req, res) => {
     try {
         const allBlogs = await BlogModel.find();
-        console.log("全ブログデータの読み取りが成功しました。", allBlogs);
-        res.render("index", { allBlogs });
+        res.render("index", { allBlogs, session: req.session.userId });
 
     } catch (error) {
         console.error("全ブログデータの読み取りが失敗しました。", error);
-        res.send("全ブログデータの読み取りが失敗しました。");
+        res.render("errorPage", { req, error });
+
     }
 });
 
@@ -88,12 +87,11 @@ app.get("/blog/create", (req, res) => {
 app.post("/blog/create", async (req, res) => {
     try {
         const singleBlog = await BlogModel.create(req.body);
-        console.log("データの書き込みが成功しました。", singleBlog);
         res.send({ "ブログデータの投稿が成功しました。": singleBlog });
 
     } catch (error) {
         console.error("データの書き込みが失敗しました。", error);
-        res.send("ブログデータの投稿が失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -103,12 +101,11 @@ app.post("/blog/create", async (req, res) => {
 app.get("/blog/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
-        res.render("blogRead", { singleBlog });
+        res.render("blogRead", { singleBlog, session: req.session.userId });
 
     } catch (error) {
         console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -118,12 +115,11 @@ app.get("/blog/:id", async (req, res) => {
 app.get("/blog/update/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
-        res.render("blogUpdate", { singleBlog });
+        res.render("blogUpdate", { singleBlog, session: req.session.userId });
 
     } catch (error) {
         console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -133,12 +129,11 @@ app.get("/blog/update/:id", async (req, res) => {
 app.post("/blog/update/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.updateOne({ _id: req.params.id }, req.body).exec();
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの編集が成功しました。": singleBlog });
+        res.redirect("/");
 
     } catch (error) {
         console.error("個別ブログデータの編集が失敗しました。", error);
-        res.send("個別ブログデータの編集が失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -148,12 +143,11 @@ app.post("/blog/update/:id", async (req, res) => {
 app.get("/blog/delete/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.findById(req.params.id);
-        console.dir(singleBlog);
         res.render("blogDelete", { singleBlog });
 
     } catch (error) {
         console.error("個別ブログデータの読み取りが失敗しました。", error);
-        res.send("個別ブログデータの読み取りが失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -163,12 +157,11 @@ app.get("/blog/delete/:id", async (req, res) => {
 app.post("/blog/delete/:id", async (req, res) => {
     try {
         const singleBlog = await BlogModel.deleteOne({ _id: req.params.id }).exec();
-        console.dir(singleBlog);
-        res.send({ "個別ブログデータの削除が成功しました。": singleBlog });
+        res.redirect("/");
 
     } catch (error) {
         console.error("個別ブログデータの削除が失敗しました。", error);
-        res.send("個別ブログデータの削除が失敗しました。");
+        res.render("errorPage", { req, error });
     }
 
 });
@@ -184,12 +177,11 @@ app.post("/user/create", async (req, res) => {
     try {
         console.dir(req.body);
         const userData = await UserModel.create(req.body);
-        console.log("ユーザーデータ登録が成功しました。", userData)
-        res.send({ "ユーザーデータ登録が成功しました。": userData });
+        res.redirect("/user/login");
 
     } catch (error) {
         console.error("ユーザーデータ登録が失敗しました。", error);
-        res.send({ "ユーザーデータ登録が失敗しました。": error });
+        res.render("errorPage", { req, error });
     }
 });
 
@@ -204,23 +196,24 @@ app.get("/user/login", (req, res) => {
 app.post("/user/login", async (req, res) => {
     try {
         const userData = await UserModel.findOne({ email: req.body.email });
-        console.log("ユーザーデータ取得が成功しました。", userData);
 
         if (userData && userData.password === req.body.password) {
             req.session.userId = userData._id;
-            res.send("ログインに成功しました。");
+            res.redirect("/");
+
         } else {
-            res.send("ログインに失敗しました。");
+            throw new Error("ログインに失敗しました。");
         }
 
     } catch (error) {
         console.error("ユーザーデータ取得が失敗しました。", error);
-        res.send({ "ユーザーデータ取得が失敗しました。": error });
+        res.render("errorPage", { req, error });
     }
 });
 
 
 // Listening start.
-app.listen(5000, () => {
-    console.log("Listening on localhost:5000");
+const port = APP_PORT || 5000;
+app.listen(port, () => {
+    console.log(`Listening on localhost:${port}`);
 });

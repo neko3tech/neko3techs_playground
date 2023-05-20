@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("./head"); %>
+    <title>エラーページ</title>
+  </head>
+  <body>
+    <%- include("./header"); %>
+    <main>
+      <div>
+        <h1>エラー</h1>
+        <p>Path : <%= req.url %></p>
+        <p>Method : <%= req.method %></p>
+        <p>Message : <%= error.message %></p>
+      </div>
+      <a href="#" onclick="window.history.back(); return false;">戻る</a>
+    </main>
+    <%- include("./footer"); %>
+  </body>
+</html>
