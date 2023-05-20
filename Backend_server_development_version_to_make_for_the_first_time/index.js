@@ -1,12 +1,13 @@
 const express = require("express");
 const session = require("express-session");
-const path = require("path");
 const mongoose = require("mongoose");
+const routers = require("./src/routers");
 require("dotenv").config();
 
 
 const app = express();
 const { MONGO_DB_CON_STR, APP_PORT } = process.env;
+
 
 //// application settings
 // enable express URL encode
@@ -23,8 +24,14 @@ app.use(session({
 // using public dir
 app.use("/public", express.static("public"));
 
+// using router
+app.use(routers);
+
+// views dir
+app.set('views', './src/views');
 // ejs enable
 app.set("view engine", "ejs");
+
 
 // connect mongodb
 (async () => {
@@ -37,46 +44,6 @@ app.set("view engine", "ejs");
     }
 })();
 
-
-//// Page rooting
-// Top page : Read all blog
-app.get("/", require(path.join(__dirname, "src/controllers/blog/index")).get);
-
-// Article create page
-app.get("/blog/create", require(path.join(__dirname, "src/controllers/blog/create")).get);
-
-// Article create : Create single blog
-app.post("/blog/create", require(path.join(__dirname, "src/controllers/blog/create")).post);
-
-
-// Article read page : Read single blog
-app.get("/blog/:id", require(path.join(__dirname, "src/controllers/blog/read")).get);
-
-// Article updade page : Read single blog
-app.get("/blog/update/:id", require(path.join(__dirname, "src/controllers/blog/update")).get);
-
-// Article update : Update single blog
-app.post("/blog/update/:id", require(path.join(__dirname, "src/controllers/blog/update")).post);
-
-
-// Article delete page : Delete single blog
-app.get("/blog/delete/:id", require(path.join(__dirname, "src/controllers/blog/delete")).get);
-
-// Article delete : Delete single blog
-app.post("/blog/delete/:id", require(path.join(__dirname, "src/controllers/blog/delete")).post);
-
-
-// Create user page
-app.get("/user/create", require(path.join(__dirname, "src/controllers/user/create")).get);
-
-// Create user : Create user
-app.post("/user/create", require(path.join(__dirname, "src/controllers/user/create")).post);
-
-// Login user page
-app.get("/user/login", require(path.join(__dirname, "src/controllers/user/login")).get);
-
-// Login user : Read user
-app.post("/user/login", require(path.join(__dirname, "src/controllers/user/login")).post);
 
 // Page notfound
 app.get("*", (req, res) => {
