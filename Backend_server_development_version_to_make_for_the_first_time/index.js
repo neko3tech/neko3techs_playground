@@ -212,6 +212,13 @@ app.post("/user/login", async (req, res) => {
 });
 
 
+// Page notfound
+app.get("*", (req, res) => {
+    const error = new Error("Page not found.");
+    res.render("errorPage", { req, error });
+});
+
+
 // Listening start.
 const port = APP_PORT || 5000;
 app.listen(port, () => {
