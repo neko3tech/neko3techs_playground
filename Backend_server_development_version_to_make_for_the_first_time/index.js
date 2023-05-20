@@ -1,11 +1,11 @@
 const express = require("express");
 const session = require("express-session");
+const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 
 const app = express();
-const rootDir = __dirname;
 const { MONGO_DB_CON_STR, APP_PORT } = process.env;
 
 //// application settings
@@ -17,7 +17,7 @@ app.use(session({
     secret: "secretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 5 * 60 * 1000 },
+    cookie: { maxAge: 60 * 60 * 1000 },
 }));
 
 // using public dir
@@ -37,31 +37,16 @@ app.set("view engine", "ejs");
     }
 })();
 
-//// db schema settings
-const Schema = mongoose.Schema;
-// blog schema setting
-const BlogSchema = new Schema({
-    title: String,
-    summary: String,
-    image: String,
-    textBody: String,
-});
-// user schema setting
-const userSchema = new Schema({
-    name: { type: String, required: true, },
-    email: { type: String, required: true, unique: true, },
-    password: { type: String, required: true, },
-});
-// create models
-const BlogModel = mongoose.model("Blog", BlogSchema);
-const UserModel = mongoose.model("User", userSchema);
+// models
+const BlogModel = require(path.join(__dirname, "src/models/blog"));
+const UserModel = require(path.join(__dirname, "src/models/user"));
 
 
 //// Page rooting
 // Top page : Read all blog
 app.get("/", async (req, res) => {
     try {
-        const allBlogs = await BlogModel.find();
+        const allBlogs = await BlogModel.getAll();
         res.render("index", { allBlogs, session: req.session.userId });
 
     } catch (error) {
@@ -86,8 +71,8 @@ app.get("/blog/create", (req, res) => {
 // Article create : Create single blog
 app.post("/blog/create", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.create(req.body);
-        res.send({ "ブログデータの投稿が成功しました。": singleBlog });
+        const singleBlog = await BlogModel.post(req.body);
+        res.redirect(`/blog/${singleBlog._id}`);
 
     } catch (error) {
         console.error("データの書き込みが失敗しました。", error);
@@ -100,7 +85,7 @@ app.post("/blog/create", async (req, res) => {
 // Article read page : Read single blog
 app.get("/blog/:id", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.findById(req.params.id);
+        const singleBlog = await BlogModel.get(req.params.id);
         res.render("blogRead", { singleBlog, session: req.session.userId });
 
     } catch (error) {
@@ -114,7 +99,7 @@ app.get("/blog/:id", async (req, res) => {
 // Article updade page : Read single blog
 app.get("/blog/update/:id", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.findById(req.params.id);
+        const singleBlog = await BlogModel.get(req.params.id);
         res.render("blogUpdate", { singleBlog, session: req.session.userId });
 
     } catch (error) {
@@ -128,8 +113,8 @@ app.get("/blog/update/:id", async (req, res) => {
 // Article update : Update single blog
 app.post("/blog/update/:id", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.updateOne({ _id: req.params.id }, req.body).exec();
-        res.redirect("/");
+        const singleBlog = await BlogModel.edit(req.params.id, req.body);
+        res.redirect(`/blog/${req.params.id}`);
 
     } catch (error) {
         console.error("個別ブログデータの編集が失敗しました。", error);
@@ -142,7 +127,7 @@ app.post("/blog/update/:id", async (req, res) => {
 // Article delete page : Delete single blog
 app.get("/blog/delete/:id", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.findById(req.params.id);
+        const singleBlog = await BlogModel.get(req.params.id);
         res.render("blogDelete", { singleBlog });
 
     } catch (error) {
@@ -156,7 +141,7 @@ app.get("/blog/delete/:id", async (req, res) => {
 // Article delete : Delete single blog
 app.post("/blog/delete/:id", async (req, res) => {
     try {
-        const singleBlog = await BlogModel.deleteOne({ _id: req.params.id }).exec();
+        const singleBlog = await BlogModel.delete(req.params.id);
         res.redirect("/");
 
     } catch (error) {
@@ -175,14 +160,14 @@ app.get("/user/create", (req, res) => {
 // Create user : Create user
 app.post("/user/create", async (req, res) => {
     try {
-        console.dir(req.body);
-        const userData = await UserModel.create(req.body);
+        const userData = await UserModel.add(req.body);
         res.redirect("/user/login");
 
     } catch (error) {
         console.error("ユーザーデータ登録が失敗しました。", error);
         res.render("errorPage", { req, error });
     }
+
 });
 
 
@@ -195,7 +180,7 @@ app.get("/user/login", (req, res) => {
 // Login user : Read user
 app.post("/user/login", async (req, res) => {
     try {
-        const userData = await UserModel.findOne({ email: req.body.email });
+        const userData = await UserModel.get(req.body);
 
         if (userData && userData.password === req.body.password) {
             req.session.userId = userData._id;
@@ -209,6 +194,7 @@ app.post("/user/login", async (req, res) => {
         console.error("ユーザーデータ取得が失敗しました。", error);
         res.render("errorPage", { req, error });
     }
+
 });
 
 
