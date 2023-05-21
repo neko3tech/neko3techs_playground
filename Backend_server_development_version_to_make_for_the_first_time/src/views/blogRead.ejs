@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <%- include("./head"); %>
+    <%- include("./head"); -%>
     <title>blogReadPage</title>
   </head>
   <body>
-    <%- include("./header"); %>
+    <%- include("./header"); -%>
     <main>
       <h1><%= singleBlog.title %></h1>
       <img src="/public/images/<%= singleBlog.image %>" alt="blog-image" />
@@ -18,6 +18,6 @@
       </div>
       <a href="#" onclick="window.history.back(); return false;">[ 戻る ]</a>
     </main>
-    <%- include("./footer"); %>
+    <%- include("./footer"); -%>
   </body>
 </html>
