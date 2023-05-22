@@ -3,23 +3,29 @@ const BlogModel = require(path.join(__dirname, "../../models/blog"));
 
 module.exports = {
     /** Article create page */
-    get: (req, res) => {
-        if (req.session.userId) {
-            res.render("blogCreate");
+    get: {
+        path: "/blog/create",
+        fn: (req, res) => {
+            if (req.session.userId) {
+                res.render("blogCreate");
 
-        } else {
-            res.redirect("/user/login");
+            } else {
+                res.redirect("/user/login");
+            }
         }
     },
     /** Article create */
-    post: async (req, res) => {
-        try {
-            const singleBlog = await BlogModel.post(req.body);
-            res.redirect(`/blog/${singleBlog._id}`);
+    post: {
+        path: "/blog/create",
+        fn: async (req, res) => {
+            try {
+                const singleBlog = await BlogModel.post(req.body);
+                res.redirect(`/blog/${singleBlog._id}`);
 
-        } catch (error) {
-            console.error("データの書き込みが失敗しました。", error);
-            res.render("errorPage", { req, error });
+            } catch (error) {
+                console.error("データの書き込みが失敗しました。", error);
+                res.render("errorPage", { req, error });
+            }
         }
-    }
+    },
 };
