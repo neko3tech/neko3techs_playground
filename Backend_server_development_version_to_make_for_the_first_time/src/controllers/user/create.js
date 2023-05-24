@@ -1,5 +1,6 @@
 const path = require("path");
 const UserModel = require(path.join(__dirname, "../../models/user"));
+const enc = require(path.join(__dirname, "../../lib/encryption"))();
 
 module.exports = {
     /** Create user page */
@@ -14,6 +15,8 @@ module.exports = {
         path: "/user/create",
         fn: async (req, res) => {
             try {
+                // Replace with encrypted password
+                req.body.password = enc.benc(req.body.password);
                 const userData = await UserModel.add(req.body);
                 res.redirect("/user/login");
 

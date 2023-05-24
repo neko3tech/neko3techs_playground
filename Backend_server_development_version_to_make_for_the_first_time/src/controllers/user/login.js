@@ -1,5 +1,6 @@
 const path = require("path");
 const UserModel = require(path.join(__dirname, "../../models/user"));
+const enc = require(path.join(__dirname, "../../lib/encryption"))();
 
 module.exports = {
     /** Login user page */
@@ -16,7 +17,7 @@ module.exports = {
             try {
                 const userData = await UserModel.get(req.body);
 
-                if (userData && userData.password === req.body.password) {
+                if (userData && enc.bcomp(req.body.password, userData.password)) {
                     req.session.userId = userData._id;
                     res.redirect("/");
 
