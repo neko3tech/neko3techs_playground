@@ -10,15 +10,19 @@
       <div>
         <h1>記事を書く</h1>
         <div>
-          <form action="/blog/create" method="post">
+          <form
+            action="/blog/create"
+            method="post"
+            enctype="multipart/form-data"
+          >
             <label for="title">タイトル</label>
             <input type="text" name="title" required />
 
             <label for="summary">要約</label>
             <input type="text" name="summary" required />
 
-            <label for="image">イメージ</label>
-            <input type="text" name="image" placeholder="/img1.jpg" required />
+            <label for="attachment">イメージ</label>
+            <input type="file" name="attachment" accept="image/*" required />
 
             <label for="textBody">本文</label>
             <textarea name="textBody" rows="15" required></textarea>

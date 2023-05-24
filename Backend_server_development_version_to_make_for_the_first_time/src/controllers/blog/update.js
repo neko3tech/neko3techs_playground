@@ -1,4 +1,7 @@
+const fs = require("fs");
 const path = require("path");
+const moment = require("moment");
+const enc = require(path.join(__dirname, "../../lib/encryption"))();
 const BlogModel = require(path.join(__dirname, "../../models/blog"));
 
 module.exports = {
@@ -21,7 +24,18 @@ module.exports = {
         path: "/blog/update/:id",
         fn: async (req, res) => {
             try {
+                // 添付ファイルをリネーム＆移動
+                const attachmentPath = req.body.attachment.path;
+                const newFileName = enc.md5(moment().format("YYYY/YYYYMMDDhhmmssSSS")) + path.extname(attachmentPath);
+                fs.renameSync(attachmentPath, path.join(process.cwd(), "/public/images", newFileName));
+                // 新しいファイル名を登録
+                req.body.image = newFileName;
+                // 現在のファイルを削除
+                fs.unlinkSync(path.join(process.cwd(), "/public/images", req.body.currentImage));
+
+                // DB登録
                 const singleBlog = await BlogModel.edit(req.params.id, req.body);
+
                 res.redirect(`/blog/${req.params.id}`);
 
             } catch (error) {

@@ -1,12 +1,13 @@
 const express = require("express");
 const session = require("express-session");
+const formData = require('express-form-data');
 const mongoose = require("mongoose");
-const routers = require("./src/routers");
 require("dotenv").config();
-
+const path = require('path');
+const routers = require("./src/routers");
 
 const app = express();
-const { MONGO_DB_CON_STR, APP_PORT } = process.env;
+const { MONGO_DB_CON_STR, APP_PORT, APP_FILE_UPLOAD_DIR } = process.env;
 
 
 //// application settings
@@ -23,6 +24,13 @@ app.use(session({
 
 // using public dir
 app.use("/public", express.static("public"));
+
+// file upload dir path
+const uploadPath = path.join(__dirname, APP_FILE_UPLOAD_DIR);
+// using formdata
+app.use(formData.parse({ uploadDir: uploadPath, autoClean: true }));
+// attach files mage body
+app.use(formData.union());
 
 // using router
 app.use(routers);

@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 const BlogModel = require(path.join(__dirname, "../../models/blog"));
 
@@ -21,7 +22,13 @@ module.exports = {
         path: "/blog/delete/:id",
         fn: async (req, res) => {
             try {
+                // DB登録
                 const singleBlog = await BlogModel.delete(req.params.id);
+
+                // ファイル削除
+                // 現在のファイルを削除
+                fs.unlinkSync(path.join(process.cwd(), "/public/images", req.body.image));
+
                 res.redirect("/");
 
             } catch (error) {
