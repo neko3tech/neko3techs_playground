@@ -7,7 +7,7 @@ module.exports = {
     get: {
         path: "/user/create",
         fn: (req, res) => {
-            res.render("userCreate");
+            res.render("user/create");
         }
     },
     /** reate user */

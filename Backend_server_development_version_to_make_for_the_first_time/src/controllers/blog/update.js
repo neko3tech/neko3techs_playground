@@ -11,7 +11,7 @@ module.exports = {
         fn: async (req, res) => {
             try {
                 const singleBlog = await BlogModel.get(req.params.id);
-                res.render("blogUpdate", { singleBlog, session: req.session.userId });
+                res.render("blog/update", { singleBlog, session: req.session.userId });
 
             } catch (error) {
                 console.error("ブログデータの読み取りが失敗しました。", error);

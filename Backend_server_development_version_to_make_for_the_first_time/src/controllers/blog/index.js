@@ -8,7 +8,7 @@ module.exports = {
         fn: async (req, res) => {
             try {
                 const allBlogs = await BlogModel.getAll();
-                res.render("index", { allBlogs, session: req.session.userId });
+                res.render("blog/index", { allBlogs, session: req.session.userId });
 
             } catch (error) {
                 console.error("全ブログデータの読み取りが失敗しました。", error);

@@ -27,10 +27,10 @@ module.exports = {
     },
     /** Edit selected blog data */
     edit: async (blogId, { title, summary, image, textBody }) => {
-        return await model.updateOne({ _id: blogId }, { title, summary, image, textBody }).exec();
+        return await model.updateOne({ _id: blogId }, { title, summary, image, textBody });
     },
     /** Delete selected blog data */
     delete: async (blogId) => {
-        return await model.deleteOne({ _id: blogId }).exec();
+        return await model.deleteOne({ _id: blogId });
     }
 };

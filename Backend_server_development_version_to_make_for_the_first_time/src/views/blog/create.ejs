@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <%- include("./head"); -%>
-    <title>ブログ投稿ページ</title>
+    <%- include("../head"); -%>
+    <title>投稿ページ</title>
   </head>
+
   <body>
-    <%- include("./header"); -%>
+    <%- include("../header"); -%>
     <main>
       <div>
         <h1>記事を書く</h1>
         <div>
-          <form
-            action="/blog/create"
-            method="post"
-            enctype="multipart/form-data"
-          >
+          <form action="/blog/create" method="post" enctype="multipart/form-data">
             <label for="title">タイトル</label>
             <input type="text" name="title" required />
 
@@ -22,7 +19,8 @@
             <input type="text" name="summary" required />
 
             <label for="attachment">イメージ</label>
-            <input type="file" name="attachment" accept="image/*" required />
+            <img id="attachment-preview" />
+            <input type="file" name="attachment" id="attachment" accept="image/*" required />
 
             <label for="textBody">本文</label>
             <textarea name="textBody" rows="15" required></textarea>
@@ -31,8 +29,9 @@
           </form>
         </div>
       </div>
-      <a href="#" onclick="window.history.back(); return false;">戻る</a>
     </main>
-    <%- include("./footer"); -%>
+    <%- include("../footer"); -%>
   </body>
 </html>
+
+<%- include("../common/previewAttachment", {src: "attachment", dest: "attachment-preview"}) -%>

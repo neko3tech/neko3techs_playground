@@ -1,0 +1,7 @@
+<script>
+  document.getElementById("<%= src %>").addEventListener("change", (ev) => {
+    const file = ev.target.files[0];
+    const blobUrl = window.URL.createObjectURL(file);
+    document.getElementById("<%= dest %>").src = blobUrl;
+  });
+</script>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <%- include("./head"); -%>
-    <title>Indexページ</title>
+    <%- include("../head"); -%>
+    <title>トップページ</title>
   </head>
   <body>
-    <%- include("./header"); -%>
+    <%- include("../header"); -%>
     <main>
-      <div>
+      <div class="blogs">
         <% allBlogs.forEach( (blog) => { %>
-        <div>
+        <div class="blog">
           <a href="blog/<%= blog._id %>">
             <img src="/public/images/<%= blog.image %>" alt="blog-image" />
             <h2><%= blog.title %></h2>
@@ -26,6 +26,6 @@
         <% }; %>
       </div>
     </main>
-    <%- include("./footer"); -%>
+    <%- include("../footer"); -%>
   </body>
 </html>

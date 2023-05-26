@@ -10,7 +10,7 @@ module.exports = {
         path: "/blog/create",
         fn: (req, res) => {
             if (req.session.userId) {
-                res.render("blogCreate");
+                res.render("blog/create");
 
             } else {
                 res.redirect("/user/login");
@@ -24,7 +24,7 @@ module.exports = {
             try {
                 // 添付ファイルをリネーム＆移動
                 const attachmentPath = req.body.attachment.path;
-                const newFileName = enc.md5(moment().format("YYYY/YYYYMMDDhhmmssSSS")) + path.extname(attachmentPath);
+                const newFileName = enc.md5(moment().format("YYYYMMDDhhmmssSSS")) + path.extname(attachmentPath);
                 fs.renameSync(attachmentPath, path.join(process.cwd(), "/public/images", newFileName));
                 // ファイル名を登録
                 req.body.image = newFileName;

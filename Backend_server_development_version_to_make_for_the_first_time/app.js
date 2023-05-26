@@ -1,22 +1,23 @@
+//// module imports
+const path = require('path');
 const express = require("express");
 const session = require("express-session");
 const formData = require('express-form-data');
 const mongoose = require("mongoose");
 require("dotenv").config();
-const path = require('path');
 const routers = require("./src/routers");
 
-const app = express();
-const { MONGO_DB_CON_STR, APP_PORT, APP_FILE_UPLOAD_DIR } = process.env;
-
+//// environment variables
+const { MONGO_DB_CON_STR, APP_PORT, APP_FILE_UPLOAD_DIR, APP_SESSION_KEY, APP_AUTHOR } = process.env;
 
 //// application settings
+const app = express();
 // enable express URL encode
 app.use(express.urlencoded({ extended: true }));
 
 // enable expless session
 app.use(session({
-    secret: "secretKey",
+    secret: APP_SESSION_KEY,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 },
@@ -39,6 +40,9 @@ app.use(routers);
 app.set('views', './src/views');
 // ejs enable
 app.set("view engine", "ejs");
+
+// set local env
+app.locals.author = APP_AUTHOR;
 
 
 // connect mongodb
@@ -63,5 +67,5 @@ app.get("*", (req, res) => {
 // Listening start.
 const port = APP_PORT || 5000;
 app.listen(port, () => {
-    console.log(`Listening on localhost:${port}`);
+    console.log(`Listening on http://localhost:${port}`);
 });
