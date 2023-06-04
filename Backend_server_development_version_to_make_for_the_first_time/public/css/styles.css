@@ -1,0 +1,178 @@
+/* Global */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 1.3rem;
+}
+h3 {
+  font-size: 1.1rem;
+}
+h4,
+h5 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+/*----- Main -----*/
+.Maincontainer {
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  grid:
+    "Maincontainer__header Maincontainer__header Header__navi" 4rem
+    "Maincontainer__side Maincontainer__body Maincontainer__body" 1fr
+    "Maincontainer__fotter Maincontainer__fotter Maincontainer__fotter" 3rem
+    /* / minmax(100px, 250px) 1fr minmax(7rem, 10rem); */ /* TODO:サイドメニューを入れたら開放する*/
+    / 0 1fr minmax(7rem, 10rem);
+
+  background-color: #333;
+}
+
+/*----- Header -----*/
+.Maincontainer__header {
+  grid-area: Maincontainer__header;
+  background-color: red;
+}
+
+/* Banner */
+.Header__banner {
+  display: flex;
+  align-items: center;
+  background-color: cyan;
+}
+
+.Header__banner a {
+  background-color: darkblue;
+}
+
+.Banner__logo {
+  height: 3rem;
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  border-radius: 50%;
+  transition: 0.3s ease-in-out;
+}
+.Banner__logo:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.Banner__title {
+  font-size: 1.5em;
+  display: inline-block;
+  line-height: 4rem;
+  padding: 0 1rem;
+  background-color: burlywood;
+}
+
+/* Header-Navi */
+.Header__navi {
+  grid-area: Header__navi;
+
+  display: flex;
+  justify-content: right;
+
+  background-color: yellow;
+}
+
+.Navi__item {
+  line-height: 4rem;
+  padding: 0 1.5rem;
+
+  background-color: blueviolet;
+}
+
+/*----- Fotter -----*/
+.Maincontainer__fotter {
+  grid-area: Maincontainer__fotter;
+  background-color: red;
+}
+
+.Fotter__cp {
+  text-align: center;
+  line-height: 3rem;
+  background-color: aqua;
+}
+
+/* Side-Menu */
+.Maincontainer__side {
+  grid-area: Maincontainer__side;
+
+  background-color: cornflowerblue;
+}
+
+/*----- Body -----*/
+.Maincontainer__body {
+  grid-area: Maincontainer__body;
+  overflow-y: auto;
+
+  background-color: rebeccapurple;
+}
+
+.Maincontainer__body h1 {
+  margin: 10px;
+  padding: 0.5em;
+  border: solid 1px pink;
+  border-radius: 1em;
+  text-indent: 1rem;
+}
+
+/*----- TopPage -----*/
+/* Blog */
+.Blog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+  background-color: blue;
+}
+
+.Blog__item {
+  padding: 0.5em;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem 0 1rem 0;
+
+  background-color: green;
+}
+
+.Blog__title {
+  padding: 0.5em;
+  text-align: center;
+  background-color: #0fff0f;
+}
+
+.Blogs__img {
+  filter: grayscale(100%);
+  transition: 0.3s ease-in-out;
+  padding: 1rem 0.5rem;
+  width: 100%;
+  height: auto;
+}
+.Blogs__img:hover {
+  filter: grayscale(0);
+  transform: scale(1.05, 1.05);
+}
+
+.Blog__summary {
+  text-indent: 1rem;
+  word-wrap: break-word;
+  /* margin: 1rem; */
+  padding: 0.5rem;
+  background-color: #0fff0f;
+}
+

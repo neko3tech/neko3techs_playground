@@ -33,6 +33,12 @@ app.use(formData.parse({ uploadDir: uploadPath, autoClean: true }));
 // attach files mage body
 app.use(formData.union());
 
+// set login-info to locals
+app.use((req, res, next) => {
+    res.locals.userId = req.session.userId;
+    next();
+});
+
 // using router
 app.use(routers);
 

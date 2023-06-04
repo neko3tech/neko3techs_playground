@@ -4,28 +4,33 @@
     <%- include("../head"); -%>
     <title>トップページ</title>
   </head>
+
   <body>
-    <%- include("../header"); -%>
-    <main>
-      <div class="blogs">
-        <% allBlogs.forEach( (blog) => { %>
-        <div class="blog">
-          <a href="blog/<%= blog._id %>">
-            <img src="/public/images/<%= blog.image %>" alt="blog-image" />
-            <h2><%= blog.title %></h2>
-            <p><%= blog.summary %></p>
-          </a>
-        </div>
-        <% }) %>
-      </div>
-      <div>
-        <% if(session !== undefined) { %>
-        <a href="/blog/create/">記事を書く</a>
-        <% } else { %>
-        <a href="/user/login">ログイン</a>
-        <% }; %>
-      </div>
-    </main>
-    <%- include("../footer"); -%>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side">.Maincontainer__side</aside>
+
+      <main class="Maincontainer__body">
+        <h1>記事一覧</h1>
+
+        <section class="Blog">
+          <% allBlogs.forEach( (blog) => { %>
+
+          <article class="Blog__item">
+            <a href="blog/<%= blog._id %>">
+              <h2 class="Blog__title"><%= blog.title %></h2>
+              <img class="Blogs__img" src="/public/images/<%= blog.image %>" alt="blog-image" />
+            </a>
+            <p class="Blog__summary"><%= blog.summary %></p>
+          </article>
+
+          <% }) %>
+        </section>
+      </main>
+
+      <%- include("../footer"); -%>
+      <!-- /.Maincontainer -->
+    </div>
   </body>
 </html>
