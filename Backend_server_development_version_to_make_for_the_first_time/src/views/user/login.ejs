@@ -5,22 +5,31 @@
     <title>ログインページ</title>
   </head>
   <body>
-    <%- include("../header"); -%>
-    <main>
-      <div>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side">.Maincontainer__side</aside>
+
+      <main class="Maincontainer__body">
         <h1>ログイン</h1>
+
         <div>
-          <form action="/user/login" method="post">
-            <label for="email">Email</label>
-            <input type="text" name="email" required />
-            <label for="password">パスワード</label>
-            <input type="password" name="password" required />
-            <br />
-            <button type="submit">ログイン</button>
+          <form class="Input__form" action="/user/login" method="post">
+            <div class="Input__set">
+              <label class="Input__label" for="email">Email</label>
+              <input class="Input__text" type="text" name="email" required />
+            </div>
+            <div class="Input__set">
+              <label class="Input__label" for="password">パスワード</label>
+              <input class="Input__text" type="password" name="password" required />
+            </div>
+            <button class="Form__button" type="submit">ログイン</button>
           </form>
         </div>
-      </div>
-    </main>
-    <%- include("../footer"); -%>
+      </main>
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
   </body>
 </html>
