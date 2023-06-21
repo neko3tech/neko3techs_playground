@@ -4,17 +4,24 @@
     <%- include("./head"); -%>
     <title>エラーページ</title>
   </head>
+
   <body>
-    <%- include("./header"); -%>
-    <main>
-      <div>
-        <h1>エラー</h1>
-        <p>Path : <%= req.url %></p>
-        <p>Method : <%= req.method %></p>
-        <p>Message : <%= error.message %></p>
-      </div>
-      <a href="#" onclick="window.history.back(); return false;">戻る</a>
-    </main>
-    <%- include("./footer"); -%>
+    <div class="Maincontainer">
+      <%- include("./header"); -%>
+
+      <main class="Maincontainer__body">
+        <div>
+          <h1 class="danger-color">エラー</h1>
+          <p class="alert-color">Path : <%= req.url %></p>
+          <p class="alert-color">Method : <%= req.method %></p>
+          <p class="alert-color">Message : <%= error.message %></p>
+          <a class="Form__button" href="/">戻る</a>
+        </div>
+      </main>
+
+      <%- include("./footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
   </body>
 </html>

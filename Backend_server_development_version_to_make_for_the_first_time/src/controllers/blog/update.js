@@ -24,14 +24,20 @@ module.exports = {
         path: "/blog/update/:id",
         fn: async (req, res) => {
             try {
-                // 添付ファイルをリネーム＆移動
-                const attachmentPath = req.body.attachment.path;
-                const newFileName = enc.md5(moment().format("YYYY/YYYYMMDDhhmmssSSS")) + path.extname(attachmentPath);
-                fs.renameSync(attachmentPath, path.join(process.cwd(), "/public/images", newFileName));
-                // 新しいファイル名を登録
-                req.body.image = newFileName;
-                // 現在のファイルを削除
-                fs.unlinkSync(path.join(process.cwd(), "/public/images", req.body.currentImage));
+                // ファイルが更新された場合
+                if (req.body.attachment.size != 0) {
+                    // 添付ファイルをリネーム＆移動
+                    const attachmentPath = req.body.attachment.path;
+                    const newFileName = enc.md5(moment().format("YYYY/YYYYMMDDhhmmssSSS")) + path.extname(attachmentPath);
+                    fs.renameSync(attachmentPath, path.join(process.cwd(), "/public/images", newFileName));
+                    // 新しいファイル名を登録
+                    req.body.image = newFileName;
+                    // 現在のファイルを削除
+                    fs.unlinkSync(path.join(process.cwd(), "/public/images", req.body.currentImage));
+
+                } else {
+                    req.body.image = req.body.currentImage;
+                }
 
                 // DB登録
                 const singleBlog = await BlogModel.edit(req.params.id, req.body);

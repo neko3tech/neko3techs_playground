@@ -2,37 +2,59 @@
 <html lang="ja">
   <head>
     <%- include("../head"); -%>
-    <title>編集ページ</title>
+    <title>編集ページ | <%= singleBlog.title %></title>
   </head>
+
   <body>
-    <%- include("../header"); -%>
-    <main>
-      <div>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side"></aside>
+
+      <main class="Maincontainer__body">
         <h1>記事を編集する</h1>
-        <div>
-          <form action="/blog/update/<%= singleBlog._id %>" method="post" enctype="multipart/form-data">
-            <label for="title">タイトル</label>
-            <input type="text" name="title" value="<%= singleBlog.title %>" required />
 
-            <label for="summary">要約</label>
-            <input type="text" name="summary" value="<%= singleBlog.summary %>" required />
+        <form
+          class="Input__form"
+          action="/blog/update/<%= singleBlog._id %>"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="Input__set">
+            <label class="Input__label" for="title">タイトル</label>
+            <input class="Input__item" type="text" name="title" value="<%= singleBlog.title %>" required />
+          </div>
 
-            <label for="currentImage">現在のイメージ</label>
-            <input type="hidden" name="currentImage" value="<%= singleBlog.image %>" />
-            <img src="/public/images/<%= singleBlog.image %>" alt="blog-image" />
-            <label for="attachment">新しいイメージ</label>
-            <img id="attachment-preview" />
-            <input type="file" name="attachment" id="attachment" accept="image/*" required />
+          <div class="Input__set">
+            <label class="Input__label" for="summary">要約</label>
+            <input class="Input__item" type="text" name="summary" value="<%= singleBlog.summary %>" required />
+          </div>
 
-            <label for="textBody">本文</label>
-            <textarea name="textBody" rows="15" required><%= singleBlog.textBody %></textarea>
-            <br />
-            <button type="submit">変更を反映する</button>
-          </form>
-        </div>
-      </div>
-    </main>
-    <%- include("../footer"); -%>
+          <div class="Input__set">
+            <label class="Input__label" for="textBody">本文</label>
+            <textarea class="Input__item" name="textBody" rows="12" required><%= singleBlog.textBody %></textarea>
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="attachment">イメージ</label>
+            <div class="Input__item" id="attachment-preview">
+              <img class="preview__img" src="/public/images/<%= singleBlog.image %>" alt="blog-image" />
+              <input type="hidden" name="currentImage" value="<%= singleBlog.image %>" />
+              <input type="file" name="attachment" id="attachment" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="Input__set">
+            <a class="Form__button" href="/blog/<%= singleBlog._id %>">戻る</a>
+            <button class="Form__button primary-color" type="submit">変更を反映する</button>
+          </div>
+        </form>
+      </main>
+
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
   </body>
 </html>
 

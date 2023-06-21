@@ -1,4 +1,4 @@
-/* Global */
+/*----- Global -----*/
 html {
   font-size: 16px;
 }
@@ -54,7 +54,7 @@ p {
   background-color: cyan;
 }
 
-.Header__banner a {
+.Header__banner > a {
   background-color: darkblue;
 }
 
@@ -105,7 +105,7 @@ p {
   background-color: aqua;
 }
 
-/* Side-Menu */
+/*----- Side-Menu -----*/
 .Maincontainer__side {
   grid-area: Maincontainer__side;
 
@@ -115,28 +115,44 @@ p {
 /*----- Body -----*/
 .Maincontainer__body {
   grid-area: Maincontainer__body;
+  overflow-x: hidden;
   overflow-y: auto;
+
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 
   background-color: rebeccapurple;
 }
 
-.Maincontainer__body h1 {
-  margin: 10px;
+.Maincontainer__body > h1 {
+  margin: 0.5rem;
   padding: 0.5em;
+  width: 95%;
+
+  text-align: center;
   border: solid 1px pink;
   border-radius: 1em;
-  text-indent: 1rem;
 }
 
 /*----- TopPage -----*/
-/* Blog */
 .Blog {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+  align-self: stretch;
+
   padding: 1rem;
 
-  background-color: blue;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-content: center;
+  gap: 1rem;
+
+  background-color: rgb(13, 8, 90);
 }
 
 .Blog__item {
@@ -171,61 +187,143 @@ p {
 .Blog__summary {
   text-indent: 1rem;
   word-wrap: break-word;
-  /* margin: 1rem; */
   padding: 0.5rem;
   background-color: #0fff0f;
 }
 
 /*----- InputForm -----*/
 .Input__form {
-  margin: 1rem;
-  padding: 0.5rem;
+  padding: inherit;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  background-color: chocolate;
+  background-color: rgb(204, 178, 33);
 }
 
 .Input__set {
-  margin: 0.5rem;
-  padding: 0.5rem;
+  padding: inherit;
+
   display: flex;
 
   background-color: rgb(115, 137, 179);
 }
-.Input__set * {
-  padding: inherit;
-  border: black solid 1px;
+
+.Input__set > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: black solid 1px;
 }
+
 .Input__label {
   width: 10rem;
-  text-align: center;
-  border-right: 0;
-  border-radius: 1rem 0 0 1rem;
+  padding: inherit;
+
   background-color: palevioletred;
 }
-.Input__text {
-  width: 20rem;
-  border-left: none;
-  border-radius: 0 1rem 1rem 0;
+.Input__label:hover {
+  cursor: default;
+}
+
+.Input__item {
+  width: 25rem;
+  padding: inherit;
+
+  flex-direction: column;
+
+  resize: none;
+
   background-color: pink;
 }
 
-/* [class*="Form__"] {
-  padding: 0.5rem 2rem;
-  background-color: cornflowerblue;
-} */
+.preview__img {
+  padding: 0.5rem;
+  width: 80%;
+}
 
 .Form__button {
-  margin: 0.5rem 0;
+  display: block;
+
+  margin: 0.5rem;
   padding: 0.5rem;
-  /* width: 12rem; */
-  width: 25%;
+  width: 12rem;
   text-align: center;
 
   border: black solid 1px;
   border-radius: 1rem;
   background-color: mediumturquoise;
+}
+
+/*----- ArticlePage -----*/
+.Article__container {
+  padding: 1rem;
+
+  display: grid;
+  grid:
+    "Article__image Article__title Article__title" auto
+    "Article__image Article__body Article__body" 1fr
+    "Article__bottom Article__bottom Article__bottom" auto
+    / auto auto minmax(50%, 1fr);
+  gap: 1rem;
+
+  min-height: 30rem;
+  max-height: calc(100vh - 10rem);
+
+  border: 1px solid black;
+  border-radius: 1rem;
+
+  background-color: rgb(4, 0, 255);
+}
+
+.Article__img {
+  grid-area: Article__image;
+
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.Article__title {
+  grid-area: Article__title;
+
+  padding: 0.5rem;
+
+  font-size: 2em;
+  font-weight: bold;
+
+  border-bottom: 2px dotted red;
+}
+
+.Article__body {
+  grid-area: Article__body;
+
+  margin: 1rem;
+  padding: 0.5rem;
+
+  font-size: 1.2rem;
+}
+
+.Article__bottom {
+  grid-area: Article__bottom;
+  display: flex;
+  place-self: center;
+}
+
+/*----- utils -----*/
+.primary-color {
+  font-weight: bold;
+  color: #555;
+  background-color: #3f3;
+}
+.alert-color {
+  color: #f33;
+  background-color: #f99;
+}
+
+.danger-color {
+  font-weight: bold;
+  color: #fff;
+  background-color: #f00;
 }

@@ -7,9 +7,11 @@
     </a>
   </div>
 </header>
+
 <nav class="Header__navi">
   <% if(locals.userId !== undefined) { %>
   <a class="Navi__item" href="/blog/create/">記事を書く</a>
+
   <% } else { %>
   <a class="Navi__item" href="/user/login">ログイン</a>
   <% }; %>

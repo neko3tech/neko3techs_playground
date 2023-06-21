@@ -1,7 +1,22 @@
 <script>
   document.getElementById("<%= src %>").addEventListener("change", (ev) => {
     const file = ev.target.files[0];
+    const prevElm = document.getElementById("<%= dest %>");
+    let img = prevElm.querySelector("img");
+    console.log("img: ", img);
+
+    if (!file) {
+      if (img) img.remove();
+      return;
+    }
+
+    if (!img) {
+      img = document.createElement("img");
+      img.className = "preview__img";
+      prevElm.prepend(img);
+    }
+
     const blobUrl = window.URL.createObjectURL(file);
-    document.getElementById("<%= dest %>").src = blobUrl;
+    img.src = blobUrl;
   });
 </script>

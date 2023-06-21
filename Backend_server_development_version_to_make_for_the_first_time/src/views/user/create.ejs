@@ -4,37 +4,36 @@
     <%- include("../head"); -%>
     <title>ユーザー登録ページ</title>
   </head>
+
   <body>
     <div class="Maincontainer">
       <%- include("../header"); -%>
 
-      <aside class="Maincontainer__side">.Maincontainer__side</aside>
+      <aside class="Maincontainer__side"></aside>
 
       <main class="Maincontainer__body">
-        <div>
-          <h1>ユーザー登録</h1>
-          <div>
-            <form class="Input__form" action="/user/create" method="post">
-              <div class="Input__set">
-                <label class="Input__label" for="name">名前</label>
-                <input class="Input__text" type="text" name="name" required />
-              </div>
+        <h1>ユーザー登録</h1>
 
-              <div class="Input__set">
-                <label class="Input__label" for="email">Email</label>
-                <input class="Input__text" type="text" name="email" required />
-              </div>
-
-              <div class="Input__set">
-                <label class="Input__label" for="password">パスワード</label>
-                <input class="Input__text" type="password" name="password" required />
-              </div>
-              <br />
-              <button class="Form__button" type="submit">登録</button>
-            </form>
+        <form class="Input__form" action="/user/create" method="post">
+          <div class="Input__set">
+            <label class="Input__label" for="name">名前</label>
+            <input class="Input__item" type="text" name="name" required />
           </div>
-        </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="email">Email</label>
+            <input class="Input__item" type="text" name="email" required />
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="password">パスワード</label>
+            <input class="Input__item" type="password" name="password" required />
+          </div>
+
+          <button class="Form__button" type="submit">登録</button>
+        </form>
       </main>
+
       <%- include("../footer"); -%>
 
       <!-- /.Maincontainer -->

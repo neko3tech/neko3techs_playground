@@ -6,31 +6,47 @@
   </head>
 
   <body>
-    <%- include("../header"); -%>
-    <main>
-      <div>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side"></aside>
+
+      <main class="Maincontainer__body">
         <h1>記事を書く</h1>
-        <div>
-          <form action="/blog/create" method="post" enctype="multipart/form-data">
-            <label for="title">タイトル</label>
-            <input type="text" name="title" required />
 
-            <label for="summary">要約</label>
-            <input type="text" name="summary" required />
+        <form class="Input__form" action="/blog/create" method="post" enctype="multipart/form-data">
+          <div class="Input__set">
+            <label class="Input__label" for="title">タイトル</label>
+            <input class="Input__item" type="text" name="title" required />
+          </div>
 
-            <label for="attachment">イメージ</label>
-            <img id="attachment-preview" />
-            <input type="file" name="attachment" id="attachment" accept="image/*" required />
+          <div class="Input__set">
+            <label class="Input__label" for="summary">要約</label>
+            <input class="Input__item" type="text" name="summary" required />
+          </div>
 
-            <label for="textBody">本文</label>
-            <textarea name="textBody" rows="15" required></textarea>
-            <br />
-            <button type="submit">投稿</button>
-          </form>
-        </div>
-      </div>
-    </main>
-    <%- include("../footer"); -%>
+          <div class="Input__set">
+            <label class="Input__label" for="textBody">本文</label>
+            <textarea class="Input__item" name="textBody" rows="12" required></textarea>
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="attachment">イメージ</label>
+            <div class="Input__item" id="attachment-preview">
+              <input class="Input__item" type="file" name="attachment" id="attachment" accept="image/*" required />
+            </div>
+          </div>
+
+          <button class="Form__button" type="submit">投稿</button>
+
+          <img id="attachment-preview" />
+        </form>
+      </main>
+
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
   </body>
 </html>
 
