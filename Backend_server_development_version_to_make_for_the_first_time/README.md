@@ -7,3 +7,7 @@
 ## Reference book
 
 [はじめてつくるバックエンドサーバー発展編（Node.js & Express & MongoDB） Kindle 版](https://amzn.to/41So0bv)
+
+## Completion date of a book
+
+2023/05/21
