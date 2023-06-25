@@ -4,6 +4,8 @@ It's my code playground.
 
 ## Learning
 
+- [はじめてつくる Gatsby サイト （React フレームワーク） Kindle 版](https://amzn.to/44bTqLa)
+
 ## Learned
 
 - [HTML＆CSS の教科書: 【これであなたも WEB デザイナーになれる】 プログラミング参考書 Kindle 版](https://amzn.to/3LElYqk)
