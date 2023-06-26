@@ -1,14 +1,16 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 
-const Blog = (props) => {
+const Blog = ({ data }) => {
     return (
         <>
             <h1>ブログページ</h1>
             {
-                props.data.allMarkdownRemark.edges.map((blog, index) =>
+                data.allMarkdownRemark.edges.map((blog, index) =>
                     <div key={index}>
-                        <h2>{blog.node.frontmatter.title}</h2>
+                        <Link to={blog.node.fields.slug}>
+                            <h2>{blog.node.frontmatter.title}</h2>
+                        </Link>
                         <p>{blog.node.frontmatter.date}</p>
                     </div>
                 )
@@ -16,23 +18,26 @@ const Blog = (props) => {
         </>
     )
 };
+
 export default Blog;
 
-
 export const query = graphql`
-query BlogListQuery {
-  allMarkdownRemark {
-    edges {
-      node {
-        frontmatter {
-          date
-          excerpt
-          id
-          image
-          title
+    query BlogListQuery {
+        allMarkdownRemark (sort: {frontmatter: {id: DESC}}) {
+            edges {
+                node {
+                    frontmatter {
+                        date
+                        excerpt
+                        id
+                        image
+                        title
+                    }
+                    fields {
+                        slug
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}
-`
+`;
