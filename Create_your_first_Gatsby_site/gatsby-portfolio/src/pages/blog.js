@@ -1,20 +1,27 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Blog = ({ data }) => {
     return (
         <>
-            <h1>ブログページ</h1>
-            {
-                data.allMarkdownRemark.edges.map((blog, index) =>
-                    <div key={index}>
-                        <Link to={blog.node.fields.slug}>
-                            <h2>{blog.node.frontmatter.title}</h2>
-                        </Link>
-                        <p>{blog.node.frontmatter.date}</p>
-                    </div>
-                )
-            }
+            <div>
+                <div>
+                    <h1>Blog</h1>
+                    <p>エンジニアの日常生活をお届けします</p>
+                    {data.allMarkdownRemark.edges.map((blog, index) =>
+                        <div key={index}>
+                            <div>
+                                <h3>{blog.node.frontmatter.title}</h3>
+                                <p>{blog.node.frontmatter.excerpt}</p>
+                                <p>{blog.node.frontmatter.date}</p>
+                                <Link to={blog.node.fields.slug}>Read More</Link>
+                            </div>
+                            <GatsbyImage image={blog.node.frontmatter.image.childImageSharp.gatsbyImageData} alt="card-image" />
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     )
 };
@@ -31,6 +38,11 @@ export const query = graphql`
                         excerpt
                         id
                         title
+                        image {
+                            childImageSharp {
+                                gatsbyImageData(quality: 90, formats: [AUTO, WEBP, AVIF], placeholder: BLURRED)
+                            }
+                        }
                     }
                     fields {
                         slug
