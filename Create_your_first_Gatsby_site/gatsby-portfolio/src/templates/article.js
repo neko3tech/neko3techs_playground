@@ -20,7 +20,6 @@ export const query = graphql`
                 date
                 excerpt
                 id
-                image
                 title
             }
             html
