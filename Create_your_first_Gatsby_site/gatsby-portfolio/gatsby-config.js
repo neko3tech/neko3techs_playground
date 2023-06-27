@@ -25,5 +25,11 @@ module.exports = {
                 path: `${__dirname}/src/data`
             },
         },
+        {
+            resolve: `gatsby-plugin-manifest`,
+            options: {
+                icon: `${__dirname}/src/images/github.svg`,
+            }
+        },
     ],
 }
