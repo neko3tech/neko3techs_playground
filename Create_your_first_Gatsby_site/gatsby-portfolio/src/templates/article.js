@@ -1,10 +1,11 @@
 import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
 
 const article = ({ data }) => {
     return (
-        <>
+        <Layout>
             <div>
                 <GatsbyImage image={data.markdownRemark.frontmatter.image.childImageSharp.gatsbyImageData} alt="article-image" />
             </div>
@@ -13,7 +14,7 @@ const article = ({ data }) => {
                 <p>{data.markdownRemark.frontmatter.date}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
             </div>
-        </>
+        </Layout>
     )
 }
 

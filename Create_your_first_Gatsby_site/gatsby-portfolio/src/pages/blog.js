@@ -1,10 +1,11 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
 
 const Blog = ({ data }) => {
     return (
-        <>
+        <Layout>
             <div>
                 <div>
                     <h1>Blog</h1>
@@ -22,7 +23,7 @@ const Blog = ({ data }) => {
                     )}
                 </div>
             </div>
-        </>
+        </Layout>
     )
 };
 
