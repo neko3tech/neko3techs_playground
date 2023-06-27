@@ -6,19 +6,20 @@ import JsLogo from "../images/javascript.svg";
 import ReactLogo from "../images/react.svg";
 import GatsbyLogo from "../images/gatsby.svg";
 import NextLogo from "../images/next.svg";
+import * as style from "../styles/index.module.scss";
 
 const Index = () => {
     return (
         <Layout>
-            <div>
-                <StaticImage src="../images/index-hero.jpg" alt="hero" quality={90} placeholder="blurred" formats={["auto", "webp", "avif"]} />
-                <div>
+            <div className={style.hero}>
+                <StaticImage className={style.heroImg} src="../images/index-hero.jpg" alt="hero" quality={90} placeholder="blurred" formats={["auto", "webp", "avif"]} />
+                <div className={style.textContainer}>
                     <h1>I'm Neko Tech!!</h1>
                     <h3>Cats that live on the Internet.</h3>
                 </div>
             </div>
-            <div>
-                <div>
+            <div className={style.container}>
+                <div className={style.profile}>
                     <div>
                         <h2>Anime/game geek</h2>
                         <p>
@@ -30,16 +31,16 @@ const Index = () => {
                     </div>
                     <StaticImage src="../images/profile.jpg" alt="profile" quality={90} placeholder="dominantColor" formats={["auto", "webp", "avif"]} />
                 </div>
-                <div>
+                <div className={style.skills}>
                     <h2>Skills</h2>
-                    <div>
+                    <div className={style.skillsContainer}>
                         <div><img src={JsLogo} alt="js" /><span> JavaScript / 10 years </span></div>
-                        <div><img src={ReactLogo} alt="react" /><span> React / few years </span></div>
-                        <div><img src={GatsbyLogo} alt="gatsby" /><span> Gatsby / few years </span></div>
-                        <div><img src={NextLogo} alt="next" /><span> Next.JS / few years </span></div>
+                        <div><img src={ReactLogo} alt="react" /><span> React / a few years </span></div>
+                        <div><img src={GatsbyLogo} alt="gatsby" /><span> Gatsby / a few years </span></div>
+                        <div><img src={NextLogo} alt="next" /><span> Next.JS / a few years </span></div>
                     </div>
                 </div>
-                <div>
+                <div className={style.ctaButton}>
                     <Link to="/contact">Make It Happen!</Link>
                 </div>
             </div>

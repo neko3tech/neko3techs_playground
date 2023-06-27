@@ -2,23 +2,26 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
+import * as style from "../styles/article.module.scss";
 
-const article = ({ data }) => {
+const Article = ({ data }) => {
     return (
         <Layout>
-            <div>
+            <div className={style.hero}>
                 <GatsbyImage image={data.markdownRemark.frontmatter.image.childImageSharp.gatsbyImageData} alt="article-image" />
             </div>
-            <div>
-                <h1>{data.markdownRemark.frontmatter.title}</h1>
-                <p>{data.markdownRemark.frontmatter.date}</p>
-                <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+            <div className={style.wrapper}>
+                <div className={style.container}>
+                    <h1>{data.markdownRemark.frontmatter.title}</h1>
+                    <p>{data.markdownRemark.frontmatter.date}</p>
+                    <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
+                </div>
             </div>
         </Layout>
     )
 }
 
-export default article;
+export default Article;
 
 export const query = graphql`
     query ArticleQuery ($slug: String!) {

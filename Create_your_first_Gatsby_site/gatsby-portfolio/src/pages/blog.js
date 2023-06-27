@@ -2,23 +2,24 @@ import * as React from "react";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
+import * as style from "../styles/blog.module.scss";
 
 const Blog = ({ data }) => {
     return (
         <Layout>
-            <div>
-                <div>
+            <div className={style.wrapper}>
+                <div className={style.container}>
                     <h1>Blog</h1>
                     <p>エンジニアの日常生活をお届けします</p>
                     {data.allMarkdownRemark.edges.map((blog, index) =>
-                        <div key={index}>
-                            <div>
+                        <div key={index} className={style.blogCard}>
+                            <div className={style.textContainer}>
                                 <h3>{blog.node.frontmatter.title}</h3>
                                 <p>{blog.node.frontmatter.excerpt}</p>
                                 <p>{blog.node.frontmatter.date}</p>
                                 <Link to={blog.node.fields.slug}>Read More</Link>
                             </div>
-                            <GatsbyImage image={blog.node.frontmatter.image.childImageSharp.gatsbyImageData} alt="card-image" />
+                            <GatsbyImage className={style.cardImg} image={blog.node.frontmatter.image.childImageSharp.gatsbyImageData} alt="card-image" />
                         </div>
                     )}
                 </div>
