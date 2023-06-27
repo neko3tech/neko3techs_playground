@@ -50,6 +50,22 @@ export const query = graphql`
                         slug
                     }
                 }
+                previous {
+                    fields {
+                        slug
+                    }
+                    frontmatter {
+                        title
+                    }
+                }
+                next {
+                    fields {
+                        slug
+                    }
+                    frontmatter {
+                        title
+                    }
+                }
             }
         }
     }

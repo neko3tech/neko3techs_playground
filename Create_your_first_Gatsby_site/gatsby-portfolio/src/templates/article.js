@@ -2,9 +2,10 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
+import ArticleMoveButton from "../components/articleMoveButton";
 import * as style from "../styles/article.module.scss";
 
-const Article = ({ data }) => {
+const Article = ({ data, pageContext }) => {
     return (
         <Layout>
             <div className={style.hero}>
@@ -16,6 +17,7 @@ const Article = ({ data }) => {
                     <p>{data.markdownRemark.frontmatter.date}</p>
                     <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
                 </div>
+                <ArticleMoveButton pageContext={pageContext} />
             </div>
         </Layout>
     )

@@ -18,11 +18,27 @@ exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
     const result = await graphql(`
         query {
-            allMarkdownRemark {
+            allMarkdownRemark (sort: {frontmatter: {id: ASC}}) {
                 edges {
                     node {
                         fields {
                             slug
+                        }
+                    }
+                    previous {
+                        fields {
+                            slug
+                        }
+                        frontmatter {
+                            title
+                        }
+                    }
+                    next {
+                        fields {
+                            slug
+                        }
+                        frontmatter {
+                            title
                         }
                     }
                 }
@@ -30,12 +46,14 @@ exports.createPages = async ({ graphql, actions }) => {
         }
     `);
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    result.data.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
         createPage({
             path: `blog${node.fields.slug}`,
             component: path.resolve(`./src/templates/article.js`),
             context: {
                 slug: node.fields.slug,
+                next,
+                previous,
             },
         })
     });
