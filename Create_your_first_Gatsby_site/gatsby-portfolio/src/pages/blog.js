@@ -17,7 +17,7 @@ const Blog = ({ data }) => {
                                 <h3>{blog.node.frontmatter.title}</h3>
                                 <p>{blog.node.frontmatter.excerpt}</p>
                                 <p>{blog.node.frontmatter.date}</p>
-                                <Link to={blog.node.fields.slug}>Read More</Link>
+                                <Link to={`/blog${blog.node.fields.slug}`}>Read More</Link>
                             </div>
                             <GatsbyImage className={style.cardImg} image={blog.node.frontmatter.image.childImageSharp.gatsbyImageData} alt="card-image" />
                         </div>
