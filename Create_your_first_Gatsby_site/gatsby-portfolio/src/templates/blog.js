@@ -2,9 +2,10 @@ import * as React from "react";
 import { graphql, Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import Layout from "../components/layout";
+import Pagination from "../components/pagination";
 import * as style from "../styles/blog.module.scss";
 
-const Blog = ({ data }) => {
+const Blog = ({ data, pageContext }) => {
     return (
         <Layout>
             <div className={style.wrapper}>
@@ -23,6 +24,7 @@ const Blog = ({ data }) => {
                         </div>
                     )}
                 </div>
+                <Pagination pageContext={pageContext} />
             </div>
         </Layout>
     )
@@ -31,8 +33,8 @@ const Blog = ({ data }) => {
 export default Blog;
 
 export const query = graphql`
-    query BlogListQuery {
-        allMarkdownRemark (sort: {frontmatter: {id: DESC}}) {
+    query BlogListQuery ($skip: Int!, $limit: Int!) {
+        allMarkdownRemark (sort: {frontmatter: {id: DESC}} limit: $limit skip: $skip) {
             edges {
                 node {
                     frontmatter {
