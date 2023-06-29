@@ -7,7 +7,7 @@ import * as style from "../styles/article.module.scss";
 
 const Article = ({ data, pageContext }) => {
     return (
-        <Layout>
+        <Layout title={data.markdownRemark.frontmatter.title}>
             <div className={style.hero}>
                 <GatsbyImage image={data.markdownRemark.frontmatter.image.childImageSharp.gatsbyImageData} alt="article-image" />
             </div>

@@ -9,7 +9,7 @@ const style = {
 
 const NotFoundPage = () => {
   return (
-    <Layout>
+    <Layout title="Not found">
       <div style={style}>
         <h1>404 : Page Not Found</h1>
         <p>ページが見つかりません。</p>
@@ -20,5 +20,3 @@ const NotFoundPage = () => {
 }
 
 export default NotFoundPage;
-
-export const Head = () => <title>Not found</title>

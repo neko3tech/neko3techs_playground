@@ -7,7 +7,7 @@ import * as style from "../styles/blog.module.scss";
 
 const Blog = ({ data, pageContext }) => {
     return (
-        <Layout>
+        <Layout title="Blog">
             <div className={style.wrapper}>
                 <div className={style.container}>
                     <h1>Blog</h1>
