@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../head"); -%>
+    <title>トップページ</title>
+  </head>
+
+  <body>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side"></aside>
+
+      <main class="Maincontainer__body">
+        <h1>記事一覧</h1>
+
+        <section class="Blog">
+          <% allBlogs.forEach( (blog) => { %>
+
+          <article class="Blog__item">
+            <a href="blog/<%= blog._id %>">
+              <h2 class="Blog__title"><%= blog.title %></h2>
+              <img class="Blogs__img" src="/public/images/<%= blog.image %>" alt="blog-image" />
+            </a>
+            <p class="Blog__summary"><%= blog.summary %></p>
+          </article>
+
+          <% }) %>
+        </section>
+      </main>
+
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
+  </body>
+</html>

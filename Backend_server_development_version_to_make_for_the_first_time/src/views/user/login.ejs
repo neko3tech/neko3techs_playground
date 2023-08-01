@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../head"); -%>
+    <title>ログインページ</title>
+  </head>
+
+  <body>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side"></aside>
+
+      <main class="Maincontainer__body">
+        <h1>ログイン</h1>
+
+        <form class="Input__form" action="/user/login" method="post">
+          <div class="Input__set">
+            <label class="Input__label" for="email">Email</label>
+            <input class="Input__item" type="text" name="email" required />
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="password">パスワード</label>
+            <input class="Input__item" type="password" name="password" required />
+          </div>
+
+          <button class="Form__button" type="submit">ログイン</button>
+        </form>
+      </main>
+
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
+  </body>
+</html>

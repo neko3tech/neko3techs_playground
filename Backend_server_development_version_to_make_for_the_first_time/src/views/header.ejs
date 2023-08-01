@@ -1,0 +1,19 @@
+<!-- header start -->
+<header class="Maincontainer__header">
+  <div class="Header__banner">
+    <a href="/">
+      <img class="Banner__logo" src="/public/images/logo.svg" alt="logo" />
+      <p class="Banner__title"><%= locals.author %>のブログ</p>
+    </a>
+  </div>
+</header>
+
+<nav class="Header__navi">
+  <% if(locals.userId !== undefined) { %>
+  <a class="Navi__item" href="/blog/create/">記事を書く</a>
+
+  <% } else { %>
+  <a class="Navi__item" href="/user/login">ログイン</a>
+  <% }; %>
+</nav>
+<!-- header end -->

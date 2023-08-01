@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <%- include("../head"); -%>
+    <title>投稿ページ</title>
+  </head>
+
+  <body>
+    <div class="Maincontainer">
+      <%- include("../header"); -%>
+
+      <aside class="Maincontainer__side"></aside>
+
+      <main class="Maincontainer__body">
+        <h1>記事を書く</h1>
+
+        <form class="Input__form" action="/blog/create" method="post" enctype="multipart/form-data">
+          <div class="Input__set">
+            <label class="Input__label" for="title">タイトル</label>
+            <input class="Input__item" type="text" name="title" required />
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="summary">要約</label>
+            <input class="Input__item" type="text" name="summary" required />
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="textBody">本文</label>
+            <textarea class="Input__item" name="textBody" rows="12" required></textarea>
+          </div>
+
+          <div class="Input__set">
+            <label class="Input__label" for="attachment">イメージ</label>
+            <div class="Input__item" id="attachment-preview">
+              <input class="Input__item" type="file" name="attachment" id="attachment" accept="image/*" required />
+            </div>
+          </div>
+
+          <button class="Form__button" type="submit">投稿</button>
+
+          <img id="attachment-preview" />
+        </form>
+      </main>
+
+      <%- include("../footer"); -%>
+
+      <!-- /.Maincontainer -->
+    </div>
+  </body>
+</html>
+
+<%- include("../common/previewAttachment", {src: "attachment", dest: "attachment-preview"}) -%>
