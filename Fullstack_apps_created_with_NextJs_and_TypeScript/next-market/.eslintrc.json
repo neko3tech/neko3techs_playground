@@ -1,3 +1,12 @@
+/*
+ * 【Next.js】Parsing error: Cannot find module 'next/babel'の解決
+ *  https://zenn.dev/shimotaroo/articles/c8f2e751cd7877
+ */
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "prettier",
+    "next/babel"
+  ]
 }
