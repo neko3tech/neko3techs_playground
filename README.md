@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- None.
+- [Next.js でつくるフルスタックアプリ with TypeScript 　前編（バックエンド開発） Kindle 版](https://amzn.to/3YqHymZ)
 
 ## Learned
 
