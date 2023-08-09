@@ -9,7 +9,7 @@ export default async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       message: `アイテム作成失敗`,
-      result: req.body,
+      error: error
     })
   }
 
