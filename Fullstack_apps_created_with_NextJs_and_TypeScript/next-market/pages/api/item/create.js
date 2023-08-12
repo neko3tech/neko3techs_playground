@@ -1,7 +1,8 @@
 import connectDB from "@/utils/database";
 import { ItemModel } from "@/utils/schemaModels";
+import auth from "@/utils/auth";
 
-export default async (req, res) => {
+export default auth(async (req, res) => {
   try {
     await connectDB();
     const data = await ItemModel.create(req.body);
@@ -18,4 +19,4 @@ export default async (req, res) => {
     })
   }
 
-};
+});

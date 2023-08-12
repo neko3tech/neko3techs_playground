@@ -20,6 +20,7 @@ export default async (req, res) => {
       {
         expiresIn: JWT_LIMIT
       })
+    console.log('token: ', token);
 
     return res.status(200).json({
       message: `ログイン成功`,
