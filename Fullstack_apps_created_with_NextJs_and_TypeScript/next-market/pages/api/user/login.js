@@ -31,7 +31,7 @@ export default async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       message: `ログイン失敗`,
-      error: error
+      error: error.message,
     })
   }
 

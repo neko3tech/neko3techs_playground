@@ -20,12 +20,14 @@ export default (handler) => {
     try {
       const decoded = Jwt.verify(token, JWT_SECRET);
       console.log('decoded: ', decoded);
+      req.body.email = decoded.email;
 
       return handler(req, res);
 
     } catch (error) {
       return res.status(401).json({
         message: "トークンが無効です",
+        error: error.message,
       });
     }
 
