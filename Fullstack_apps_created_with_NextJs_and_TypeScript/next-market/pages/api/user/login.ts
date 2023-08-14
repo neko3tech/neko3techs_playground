@@ -1,13 +1,16 @@
-import connectDB from "@/utils/database";
-import { UserModel } from "@/utils/schemaModels";
+import type { NextApiResponse } from "next";
+import { ExtendedNextApiRequestUser, ResMessageType, SavedUserDataType } from "../../../utils/types";
+
+import connectDB from "../../../utils/database";
+import { UserModel } from "../../../utils/schemaModels";
 import Jwt from "jsonwebtoken";
 import { config } from "dotenv";
 const { JWT_SECRET, JWT_LIMIT } = config().parsed;
 
-export default async (req, res) => {
+export default async (req: ExtendedNextApiRequestUser, res: NextApiResponse<ResMessageType>) => {
   try {
     await connectDB();
-    const data = await UserModel.findOne({ email: req.body.email });
+    const data: SavedUserDataType | null = await UserModel.findOne({ email: req.body.email });
 
     if (!data || data.password !== req.body.password) {
       throw new Error("ユーザー情報がありません");
