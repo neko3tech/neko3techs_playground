@@ -1,4 +1,4 @@
-import { NextApiResponse } from "next";
+import type { NextApiResponse } from "next";
 import Jwt from "jsonwebtoken";
 import { ExtendedNextApiRequestAuth, ResMessageType, DecodedType } from "./types";
 import { config } from "dotenv";
