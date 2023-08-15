@@ -44,6 +44,32 @@ export interface SavedUserDataType extends UserDataType {
 }
 
 
+//// item
+// readall.ts
+export interface ResReadAllType {
+  message: string,
+  data?: SavedItemDataType[],
+  error?: string,
+}
+
+// readall.ts
+export interface SavedItemDataType extends ItemDataType {
+  _id: Types.ObjectId,
+}
+
+// create.ts
+export interface ExtendedNextApiRequestItem extends NextApiRequest {
+  body: ItemDataType,
+}
+
+// [id].ts
+export interface ResSingleType {
+  message: string,
+  data?: SavedItemDataType,
+  error?: string,
+
+}
+
 //// Common
 export interface ResMessageType {
   message: string,
