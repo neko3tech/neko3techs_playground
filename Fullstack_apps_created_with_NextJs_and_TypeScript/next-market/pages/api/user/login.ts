@@ -23,7 +23,6 @@ export default async (req: ExtendedNextApiRequestUser, res: NextApiResponse<ResM
       {
         expiresIn: JWT_LIMIT
       })
-    console.log('token: ', token);
 
     return res.status(200).json({
       message: `ログイン成功`,
