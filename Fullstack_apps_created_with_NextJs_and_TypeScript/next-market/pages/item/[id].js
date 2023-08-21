@@ -12,6 +12,10 @@ export default ({ data }) => {
         <h2>{data.price}</h2>
         <hr />
         <p>{data.description}</p>
+        <div>
+          <Link href={`/item/update/${data._id}`} >アイテム編集</Link>
+          <Link href={`/item/delete/${data._id}`} >アイテム削除</Link>
+        </div>
       </div>
     </>
   )
