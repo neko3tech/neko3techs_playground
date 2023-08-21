@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { config } from "dotenv";
-const { MONGO_DB_CON_STR } = config().parsed;
+const { MONGO_DB_CON_STR } = process.env;
 
 export default async function connectDB() {
   try {

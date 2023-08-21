@@ -4,8 +4,7 @@ import { ExtendedNextApiRequestUser, ResMessageType, SavedUserDataType } from ".
 import connectDB from "../../../utils/database";
 import { UserModel } from "../../../utils/schemaModels";
 import Jwt from "jsonwebtoken";
-import { config } from "dotenv";
-const { JWT_SECRET, JWT_LIMIT } = config().parsed;
+const { JWT_SECRET, JWT_LIMIT } = process.env;
 
 export default async (req: ExtendedNextApiRequestUser, res: NextApiResponse<ResMessageType>) => {
   try {

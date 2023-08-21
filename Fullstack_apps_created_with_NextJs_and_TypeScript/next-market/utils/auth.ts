@@ -1,8 +1,7 @@
 import type { NextApiResponse } from "next";
 import Jwt from "jsonwebtoken";
 import { ExtendedNextApiRequestAuth, ResMessageType, DecodedType } from "./types";
-import { config } from "dotenv";
-const { JWT_SECRET } = config().parsed;
+const { JWT_SECRET } = process.env;
 
 
 export default (handler: Function) => {
