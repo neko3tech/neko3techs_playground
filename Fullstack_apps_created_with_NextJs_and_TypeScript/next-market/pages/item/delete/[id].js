@@ -1,4 +1,5 @@
 import Image from "next/image";
+import useAuth from "../../../utils/useAuth";
 
 export default ({ data }) => {
   const handleChange = ({ target }) => {
@@ -28,18 +29,24 @@ export default ({ data }) => {
     }
   };
 
-  return (
-    <>
-      <h1>アイテム削除</h1>
-      <form onSubmit={handleSubmit}>
-        <h2>{data.title}</h2>
-        <Image src={data.image} width={750} height={500} alt="item-image" />
-        <h3> \{data.price} </h3>
-        <p> {data.description} </p>
-        <button>削除</button>
-      </form>
-    </>
-  );
+  const loginUser = useAuth();
+
+  if (loginUser === data.email) {
+    return (
+      <>
+        <h1>アイテム削除</h1>
+        <form onSubmit={handleSubmit}>
+          <h2>{data.title}</h2>
+          <Image src={data.image} width={750} height={500} alt="item-image" />
+          <h3> \{data.price} </h3>
+          <p> {data.description} </p>
+          <button>削除</button>
+        </form>
+      </>
+    );
+  } else {
+    return <h1>権限がありません</h1>
+  }
 };
 
 export const getServerSideProps = async (context) => {
