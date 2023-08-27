@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 
 export default () => {
 
@@ -37,7 +38,8 @@ export default () => {
 
   return (
     <>
-      <h1>ユーザー登録</h1>
+      <Head><title>ユーザー登録</title></Head>
+      <h1 className="page-title">ユーザー登録</h1>
       <form onSubmit={handleSubmit}>
         <input value={user.name} onChange={handleChange} type="text" name="name" placeholder="名前" required />
         <input value={user.email} onChange={handleChange} type="text" name="email" placeholder="メールアドレス" required />

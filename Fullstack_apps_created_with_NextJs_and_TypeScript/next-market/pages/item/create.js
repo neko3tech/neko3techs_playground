@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import useAuth from "../../utils/useAuth";
 
 export default () => {
@@ -42,8 +43,9 @@ export default () => {
 
   if (loginUser) {
     return (
-      <>
-        <h1>アイテム作成</h1>
+      <div>
+        <Head><title>アイテム作成</title></Head>
+        <h1 className="page-title">アイテム作成</h1>
         <form onSubmit={handleSubmit}>
           <input value={item.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
           <input value={item.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
@@ -52,7 +54,7 @@ export default () => {
 
           <button>作成</button>
         </form>
-      </>
+      </div>
     )
   }
 };
