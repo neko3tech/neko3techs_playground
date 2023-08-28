@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import useAuth from "../../utils/useAuth";
+import ImageInput from "../../components/ImageInput";
 
 export default () => {
 
@@ -46,6 +47,7 @@ export default () => {
       <div>
         <Head><title>アイテム作成</title></Head>
         <h1 className="page-title">アイテム作成</h1>
+        <ImageInput item={item} setItem={setItem} />
         <form onSubmit={handleSubmit}>
           <input value={item.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
           <input value={item.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
