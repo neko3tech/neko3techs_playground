@@ -1,7 +1,7 @@
 import type { NextApiRequest } from "next";
 import { Types } from "mongoose";
 
-//// util
+//#region utils
 // schemaModels.ts
 export interface ItemDataType {
   title: string,
@@ -17,7 +17,6 @@ export interface UserDataType {
   password: string,
 }
 
-
 // auth.ts
 export interface DecodedType {
   email: string,
@@ -31,9 +30,10 @@ export interface ExtendedNextApiRequestAuth extends NextApiRequest {
     email: string,
   },
 }
+//#endregion utils
 
 
-//// user
+//#region user
 // create.ts, login.ts
 export interface ExtendedNextApiRequestUser extends NextApiRequest {
   body: UserDataType
@@ -42,9 +42,10 @@ export interface ExtendedNextApiRequestUser extends NextApiRequest {
 export interface SavedUserDataType extends UserDataType {
   _id: Types.ObjectId,
 }
+//#endregion user
 
 
-//// item
+//#region item
 // readall.ts
 export interface ResReadAllType {
   message: string,
@@ -67,13 +68,28 @@ export interface ResSingleType {
   message: string,
   data?: SavedItemDataType,
   error?: string,
-
 }
 
-//// Common
+//// Frontend
+// // [id].ts
+export interface SingleDataType {
+  data: {
+    _id: string,
+    title: string,
+    image: string,
+    price: string,
+    description: string,
+    email: string,
+  }
+}
+//#endregion item
+
+
+//#region Common
 export interface ResMessageType {
   message: string,
   token?: string,
   result?: object,
   error?: string,
 }
+//#endregion Common
