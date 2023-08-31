@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function useAuth() {
-
+const useAuth = () => {
   const [loginUser, setLoginUser] = useState("");
   const router = useRouter();
 
@@ -17,16 +16,15 @@ export default function useAuth() {
       fetch("/api/user/auth", {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
-          "authorization": `Bearer ${token}`
+          authorization: `Bearer ${token}`,
         },
       })
-        .then(res => res.json())
-        .then(data => {
-          setLoginUser(data.result);
-        })
-
+        .then((res) => res.json())
+        .then((data) => {
+          setLoginUser(data.result.email);
+        });
     } catch (error) {
       router.push("/user/login");
     }
@@ -34,3 +32,5 @@ export default function useAuth() {
 
   return loginUser;
 };
+
+export default useAuth;

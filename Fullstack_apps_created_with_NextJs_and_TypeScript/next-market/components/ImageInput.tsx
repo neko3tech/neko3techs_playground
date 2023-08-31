@@ -1,11 +1,12 @@
+import type { NextPage } from "next/types";
 import { useState } from "react";
+import { ImageDataType } from "../utils/types";
 
-export default function ImageInput(props) {
-  const [imageFile, setImageFile] = useState("");
+const ImageInput: NextPage<ImageDataType> = (props) => {
+  const [imageFile, setImageFile] = useState<File>();
 
   const handlClick = async () => {
     try {
-      console.log("===>", process.env);
       const data = new FormData();
       data.append("file", imageFile);
       data.append("cloud_name", "nekoteckmarket");
@@ -15,12 +16,10 @@ export default function ImageInput(props) {
         body: data,
       });
       const resJson = await res.json();
-      console.log('resJson: ', resJson);
-      await props.setItem(
-        {
-          ...props.item,
-          image: resJson.url
-        });
+      await props.setItem({
+        ...props.item,
+        image: resJson.url,
+      });
       alert("画像アップロード成功");
     } catch (error) {
       alert("画像アップロード失敗：" + error.message);
@@ -30,7 +29,11 @@ export default function ImageInput(props) {
   return (
     <div className="img-input">
       <input type="file" onChange={(e) => setImageFile(e.target.files[0])} accept="image/*" />
-      <button onClick={handlClick} disabled={!imageFile}>画像アップロード</button>
+      <button onClick={handlClick} disabled={!imageFile}>
+        画像アップロード
+      </button>
     </div>
-  )
-}
+  );
+};
+
+export default ImageInput;

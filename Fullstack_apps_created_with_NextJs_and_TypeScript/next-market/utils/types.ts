@@ -82,6 +82,22 @@ export interface SingleDataType {
     email: string,
   }
 }
+
+export interface AllDataType {
+  data: {
+    _id: string,
+    title: string,
+    image: string,
+    price: string,
+    description: string,
+    email: string,
+  }[],
+}
+
+export interface ImageDataType {
+  item: object,
+  setItem: Function,
+}
 //#endregion item
 
 

@@ -1,7 +1,9 @@
+import { NextApiResponse } from "next";
 import Jwt from "jsonwebtoken";
+import { ExtendedNextApiRequestAuth, ResMessageType, DecodedType } from "../../../utils/types";
 const { JWT_SECRET } = process.env;
 
-export default (req, res) => {
+export default (req: ExtendedNextApiRequestAuth, res: NextApiResponse<ResMessageType>) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
 
@@ -9,7 +11,7 @@ export default (req, res) => {
 
     return res.status(200).json({
       message: `認証成功`,
-      result: decoded.email,
+      result: { email: (decoded as DecodedType).email },
     })
 
   } catch (error) {
