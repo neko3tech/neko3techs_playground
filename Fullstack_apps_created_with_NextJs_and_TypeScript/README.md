@@ -11,4 +11,4 @@
 
 ## Completion date of a book
 
-----/--/--
+2023/09/01

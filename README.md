@@ -4,7 +4,7 @@ It's my code playground.
 
 ## Learning
 
-- [Next.js でつくるフルスタックアプリ with TypeScript 　前編（バックエンド開発） Kindle 版](https://amzn.to/3YqHymZ)
+- 検討中
 
 ## Learned
 
@@ -15,3 +15,5 @@ It's my code playground.
 - [はじめてつくるバックエンドサーバー基礎編（Node.js & Express） Kindle 版](https://amzn.to/3MisOlM)
 - [はじめてつくるバックエンドサーバー発展編（Node.js & Express & MongoDB） Kindle 版](https://amzn.to/41So0bv)
 - [はじめてつくる Gatsby サイト （React フレームワーク） Kindle 版](https://amzn.to/44bTqLa)
+- [Next.js でつくるフルスタックアプリ with TypeScript 　前編（バックエンド開発） Kindle 版](https://amzn.to/3YqHymZ)
+- [Next.js でつくるフルスタックアプリ with TypeScript 　後編（フロントエンド開発） Kindle 版](https://amzn.to/44ajshq)
