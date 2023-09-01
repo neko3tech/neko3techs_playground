@@ -15,7 +15,7 @@ export default auth(async (req: ExtendedNextApiRequestItem, res: NextApiResponse
     if (data.email !== req.body.email)
       throw new Error("アイテム作成者以外の削除はできません");
 
-    const result = await ItemModel.updateOne({ _id: req.query.id }, req.body);
+    const result = await ItemModel.deleteOne({ _id: req.query.id }, req.body);
 
     return res.status(200).json({
       message: `アイテム削除成功`,
