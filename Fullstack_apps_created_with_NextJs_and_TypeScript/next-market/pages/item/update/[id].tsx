@@ -1,6 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
 import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import useAuth from "../../../utils/useAuth";
 import { SingleDataType } from "../../../utils/types";
 
@@ -11,6 +12,8 @@ const UpdateItem: NextPage<SingleDataType> = ({ data }) => {
     image: data.image,
     description: data.description,
   });
+
+  const router = useRouter();
 
   const handleChange = ({ target }) => {
     setItem({
@@ -34,9 +37,15 @@ const UpdateItem: NextPage<SingleDataType> = ({ data }) => {
       });
 
       const responseJson = await response.json();
+      if (response.status === 200) {
+        alert(responseJson.message);
+        router.push(`/item/${router.query.id}`);
+      } else {
+        throw new Error(`${responseJson.message}:${responseJson.error}`);
+      }
       alert(responseJson.message);
     } catch (error) {
-      alert("アイテム編集失敗");
+      alert(`${error.message}`);
     }
   };
 
@@ -46,7 +55,7 @@ const UpdateItem: NextPage<SingleDataType> = ({ data }) => {
     return (
       <div>
         <Head>
-          <title>アイテム作成</title>
+          <title>アイテム編集 | {item.title}</title>
         </Head>
         <h1 className="page-title">アイテム編集</h1>
         <form onSubmit={handleSubmit}>

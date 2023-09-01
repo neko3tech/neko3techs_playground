@@ -1,6 +1,7 @@
 import type { NextPage } from "next/types";
 import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import useAuth from "../../utils/useAuth";
 import ImageInput from "../../components/ImageInput";
 
@@ -11,6 +12,8 @@ const CreateItem: NextPage = () => {
     image: "",
     description: "",
   });
+
+  const router = useRouter();
 
   const handleChange = ({ target }) => {
     setItem({
@@ -34,9 +37,15 @@ const CreateItem: NextPage = () => {
       });
 
       const responseJson = await response.json();
-      alert(responseJson.message);
+
+      if (response.status === 200) {
+        alert(responseJson.message);
+        router.push(`/item/${responseJson.result._id}`);
+      } else {
+        throw new Error(`${responseJson.message}:${responseJson.error}`);
+      }
     } catch (error) {
-      alert("アイテム登録失敗");
+      alert(`${error.message}`);
     }
   };
 

@@ -1,10 +1,13 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Image from "next/image";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import useAuth from "../../../utils/useAuth";
 import { SingleDataType } from "../../../utils/types";
 
 const DeleteItem: NextPage<SingleDataType> = ({ data }) => {
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -17,11 +20,16 @@ const DeleteItem: NextPage<SingleDataType> = ({ data }) => {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
       const responseJson = await response.json();
-      alert(responseJson.message);
+
+      if (response.status === 200) {
+        alert(responseJson.message);
+        router.push(`/`);
+      } else {
+        throw new Error(`${responseJson.message}:${responseJson.error}`);
+      }
     } catch (error) {
-      alert("アイテム削除失敗");
+      alert(`${error.message}`);
     }
   };
 
@@ -31,7 +39,7 @@ const DeleteItem: NextPage<SingleDataType> = ({ data }) => {
     return (
       <div className="delete-page">
         <Head>
-          <title>アイテム削除</title>
+          <title>アイテム削除 | {data.title}</title>
         </Head>
         <h1 className="page-title">アイテム削除</h1>
         <form onSubmit={handleSubmit}>
