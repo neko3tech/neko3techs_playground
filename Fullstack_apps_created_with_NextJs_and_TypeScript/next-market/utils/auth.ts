@@ -21,7 +21,6 @@ export default (handler: Function) => {
 
     try {
       const decoded = Jwt.verify(token, JWT_SECRET);
-      console.log('decoded: ', decoded);
       req.body.email = (decoded as DecodedType).email;
 
       return handler(req, res);

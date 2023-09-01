@@ -83,8 +83,6 @@ export const getServerSideProps: GetServerSideProps<SingleDataType> = async (con
   const protocol = /^localhost/.test(host) ? "http" : "https";
 
   const response = await fetch(`${protocol}://${host}/api/item/${context.query.id}`);
-
-  console.log(`${protocol}://${host}/api/item/${context.query.id}`);
   const responseJson = await response.json();
 
   return {
