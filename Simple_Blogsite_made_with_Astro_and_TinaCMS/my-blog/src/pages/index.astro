@@ -1,4 +1,6 @@
 ---
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
 ---
 
 <html lang="ja">
@@ -10,28 +12,10 @@
 		<title>NekoTech Flow</title>
 	</head>
 	<body>
-		<header>
-			<nav>
-				<a href="/">
-					<img src="/logo.svg" alt="logo" width="28" height="28" />
-					NekoTech Flow.
-				</a>
-				<ul>
-					<li><a href="/"></a>Home</li>
-					<li><a href="/blog">Blog</a></li>
-				</ul>
-			</nav>
-		</header>
-
+		<Header />
 		<main>
 			<h1>NekoTech Flow.</h1>
 		</main>
-
-		<footer>
-			<ul>
-				<li><a href="https://twitter.com/neko3tech">Twitter</a></li>
-				<li><a href="https://github.com/neko3tech">GitHub</a></li>
-			</ul>
-		</footer>
+		<Footer />
 	</body>
 </html>
