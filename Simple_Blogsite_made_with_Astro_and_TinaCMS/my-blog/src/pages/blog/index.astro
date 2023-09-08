@@ -1,0 +1,24 @@
+---
+import Layout from "@layouts/layout.astro";
+
+import { getCollection } from "astro:content";
+import { compareDesc } from "date-fns";
+
+const blogPosts = await getCollection("blog");
+const sortedBlogPosts = blogPosts.sort((a, b) => compareDesc(a.data.pubDate, b.data.pubDate));
+---
+
+<Layout pageTitle="Blog Posts" description="ブログの記事一覧">
+  <h1>NekoTech Blog.</h1>
+  <div>
+    {
+      sortedBlogPosts.map((post) => {
+        return (
+          <article>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </article>
+        );
+      })
+    }
+  </div>
+</Layout>
