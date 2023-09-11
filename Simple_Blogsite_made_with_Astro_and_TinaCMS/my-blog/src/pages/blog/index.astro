@@ -1,5 +1,6 @@
 ---
 import Layout from "@layouts/layout.astro";
+import Card from "@components/card.astro";
 
 import { getCollection } from "astro:content";
 import { compareDesc } from "date-fns";
@@ -10,14 +11,14 @@ const sortedBlogPosts = blogPosts.sort((a, b) => compareDesc(a.data.pubDate, b.d
 
 <Layout pageTitle="Blog Posts" description="ブログの記事一覧">
   <h1>NekoTech Blog.</h1>
-  <div>
+  <div class="grid">
     {
       sortedBlogPosts.map((post) => {
-        return (
-          <article>
-            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-          </article>
-        );
+        const {
+          slug,
+          data: { image, title },
+        } = post;
+        return <Card url={`/blog/${slug}`} src={image} title={title} />;
       })
     }
   </div>
