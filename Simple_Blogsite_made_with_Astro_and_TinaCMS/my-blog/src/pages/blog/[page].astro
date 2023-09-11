@@ -5,15 +5,22 @@ import Card from "@components/card.astro";
 import { getCollection } from "astro:content";
 import { compareDesc } from "date-fns";
 
-const blogPosts = await getCollection("blog");
-const sortedBlogPosts = blogPosts.sort((a, b) => compareDesc(a.data.pubDate, b.data.pubDate));
+export async function getStaticPaths({ pagenate }) {
+  const blogPossts = await getCollection("blog");
+  const sortedBlogPosts = blogPossts.sort((a, b) => compareDesc(a.data.pubDate, b.data.pubDate));
+  return pagenate(sortedBlogPosts, { pageSize: 6 });
+}
+
+const {
+  page: { data },
+} = Astro.props;
 ---
 
 <Layout pageTitle="Blog Posts" description="ブログの記事一覧">
   <h1>NekoTech Blog.</h1>
   <div class="grid">
     {
-      sortedBlogPosts.map((post) => {
+      data.map((post) => {
         const {
           slug,
           data: { image, title },
