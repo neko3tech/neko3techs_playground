@@ -1,10 +1,11 @@
 ---
+import CustomImage from "./customImage.astro";
 const { url, src, title, alt = "" } = Astro.props;
 ---
 
 <article class="card">
   <a href={url}>
-    <img src={src} alt={alt} />
+    <CustomImage src={src} alt={alt} />
     <h2>{title}</h2>
   </a>
 </article>
