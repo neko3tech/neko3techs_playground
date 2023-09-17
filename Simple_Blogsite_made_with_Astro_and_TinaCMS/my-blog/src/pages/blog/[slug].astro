@@ -1,0 +1,49 @@
+---
+import Layout from "@layouts/layout.astro";
+import { getCollection } from "astro:content";
+import CustomImage from "@components/customImage.astro";
+import { format, formatISO } from "date-fns";
+import { categories } from "@lib/constants";
+
+export async function getStaticPaths({}) {
+  const blogPosts = await getCollection("blog");
+
+  return blogPosts.map((post) => {
+    console.log("post", post);
+    return { params: { slug: post.slug }, props: { post: post } };
+  });
+}
+
+const {
+  post: {
+    data: { title, pubDate, image, category, description },
+    render,
+  },
+} = Astro.props;
+
+const pubDateISO = formatISO(pubDate);
+const pubDateJA = format(pubDate, "yyyy年MM月dd日");
+const { Content } = await render();
+---
+
+<Layout pageTitle={title} description={description} pageImg={image}>
+  <article>
+    <CustomImage src={image} alt={description} />
+    <h1>{title}</h1>
+
+    <div class="flex-spacebetween">
+      <time datetime={pubDateISO}>{pubDateJA}</time>
+      <div class="flex">
+        {
+          category.map((categorySlug) => {
+            const categoryName = categories.find((cat) => cat.categorySlug === categorySlug).categoryName;
+            return <a href={`/blog/category/${categorySlug}`}>{categoryName}</a>;
+          })
+        }
+      </div>
+    </div>
+    <div>
+      <Content />
+    </div>
+  </article>
+</Layout>
