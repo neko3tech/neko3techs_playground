@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import CustomImage from "@components/customImage.astro";
 import { format, formatISO } from "date-fns";
 import { categories } from "@lib/constants";
+import "github-markdown-css/github-markdown-light.css";
 
 export async function getStaticPaths({}) {
   const blogPosts = await getCollection("blog");
@@ -42,7 +43,7 @@ const { Content } = await render();
         }
       </div>
     </div>
-    <div>
+    <div class="markdown-bodylarge-space">
       <Content />
     </div>
   </article>

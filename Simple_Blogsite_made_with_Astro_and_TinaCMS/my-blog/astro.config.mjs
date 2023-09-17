@@ -5,4 +5,9 @@ const { siteUrl } = siteMeta;
 // https://astro.build/config
 export default defineConfig({
   site: siteUrl,
+  markdown: {
+    theme: "dracula",
+    langs: [],
+    wrap: true,
+  }
 });
