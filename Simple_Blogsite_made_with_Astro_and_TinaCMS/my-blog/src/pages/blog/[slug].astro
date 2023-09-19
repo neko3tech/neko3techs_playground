@@ -10,7 +10,6 @@ export async function getStaticPaths({}) {
   const blogPosts = await getCollection("blog");
 
   return blogPosts.map((post) => {
-    console.log("post", post);
     return { params: { slug: post.slug }, props: { post: post } };
   });
 }
@@ -44,7 +43,7 @@ const { Content } = await render();
       </div>
     </div>
     <div class="markdown-bodylarge-space">
-      <Content />
+      <Content components={{ img: CustomImage }} />
     </div>
   </article>
 </Layout>
