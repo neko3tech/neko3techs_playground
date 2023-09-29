@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { siteMeta } from './src/lib/constants';
 import mdx from "@astrojs/mdx";
+import prefetch from "@astrojs/prefetch";
 const {
   siteUrl
 } = siteMeta;
@@ -14,5 +15,5 @@ export default defineConfig({
     langs: [],
     wrap: true
   },
-  integrations: [mdx()]
+  integrations: [mdx(), prefetch()]
 });
