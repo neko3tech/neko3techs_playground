@@ -1,16 +1,38 @@
 ---
 import Layout from "@layouts/layout.astro";
 import { getCollection } from "astro:content";
+import { format, formatISO, compareDesc } from "date-fns";
 import CustomImage from "@components/customImage.astro";
-import { format, formatISO } from "date-fns";
+import Pagination from "@components/pagination.astro";
 import { categories } from "@lib/constants";
 import "github-markdown-css/github-markdown-light.css";
 
 export async function getStaticPaths({}) {
   const blogPosts = await getCollection("blog");
+  const sortedBlogPosts = blogPosts.sort((a, b) => compareDesc(a.data.pubDate, b.data.pubDate));
+  const numberOfPosts = blogPosts.length;
 
-  return blogPosts.map((post) => {
-    return { params: { slug: post.slug }, props: { post: post } };
+  return sortedBlogPosts.map((post) => {
+    const { slug } = post;
+    const currentPage = sortedBlogPosts.findIndex((post) => post.slug === slug);
+
+    const prev =
+      currentPage + 1 >= numberOfPosts
+        ? {}
+        : {
+            prevTitle: sortedBlogPosts[currentPage + 1].data.title,
+            prev: `/blog/${sortedBlogPosts[currentPage + 1].slug}`,
+          };
+
+    const next =
+      currentPage - 1 < 0
+        ? {}
+        : {
+            nextTitle: sortedBlogPosts[currentPage - 1].data.title,
+            next: `/blog/${sortedBlogPosts[currentPage - 1].slug}`,
+          };
+
+    return { params: { slug }, props: { post, url: { ...prev, ...next } } };
   });
 }
 
@@ -19,6 +41,7 @@ const {
     data: { title, pubDate, image, category, description },
     render,
   },
+  url,
 } = Astro.props;
 
 const pubDateISO = formatISO(pubDate);
@@ -45,5 +68,7 @@ const { Content } = await render();
     <div class="markdown-bodylarge-space">
       <Content components={{ img: CustomImage }} />
     </div>
+
+    <Pagination {...url} />
   </article>
 </Layout>
